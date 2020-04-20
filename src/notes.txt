@@ -1,0 +1,3 @@
+We should make a version of this where it gives you a location and you have to put a circle on google maps to show your confidence.
+Need to deal with splitting paragraphs into sentences a bit better. Mr was a problem
+
