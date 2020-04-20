@@ -1,11 +1,18 @@
 import { parse } from 'node-html-parser';
 
-const endpoint = "https://en.wikipedia.org/api/rest_v1/page/html/"
+const endpointHtml = "https://en.wikipedia.org/api/rest_v1/page/html/"
+const endpointSummary = "https://en.wikipedia.org/api/rest_v1/page/summary/"
 
 function getPage(page){
-    console.log(endpoint + page)
-    return fetch(endpoint + page)
+    console.log(endpointHtml + page)
+    return fetch(endpointHtml + page)
         .then( (res) => res.text() )
+}
+
+function getSummary(page){
+    console.log(endpointSummary + page)
+    return fetch(endpointSummary + page)
+        .then( (res) => res.json() )
 }
 
 function findLinks(html){
@@ -15,29 +22,21 @@ function findLinks(html){
 
 function findFact(){
     return getPage(pickRandomDate())
-        .then( (html) => getPage(choose(findLinks(html))))
-        .then( (html) => {
-            const root = parse(html)
-            const paragraphs = root.querySelectorAll("p").slice(0,5)
-            // document.write(paragraphs)
-
-            for (let i = 0; i < 5; i++ ){
-                const p = paragraphs[i]
-                const sentences = p.text.split(". ")
-
-                for (let j = 0; j < sentences.length; j++){
-                    let s = sentences[j]
-                    s = s.replace(/\[.*\]/, "")
-                    let m
-                    let regex = /[0-9]+/g
-                    do {
-                        m = regex.exec(s);
-                        if (m) {
-                            return [s, m]
-                        }
-                    } while (m);
+        .then( (html) => getSummary(choose(findLinks(html))))
+        .then( (json) => {
+            let s = json.extract
+            s = s.replace(/\[.*\]/, "")
+            let m
+            let regex = /[0-9]+/g
+            do {
+                m = regex.exec(s);
+                if (m) {
+                    if (s.search("<") == -1) {
+                        return [s, m]
+                    }
                 }
-            }
+            } while (m);
+
         })
 }
 
