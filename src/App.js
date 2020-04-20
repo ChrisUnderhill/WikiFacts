@@ -12,6 +12,10 @@ class App extends React.Component{
 
     updateFact(promise){
         promise.then( (res) => {
+            if (res == undefined){
+                this.updateFact(findFact())
+                return
+            }
             let sentence = res[0]
             console.log(res[1])
             sentence = sentence.replace(res[1][0], "____")

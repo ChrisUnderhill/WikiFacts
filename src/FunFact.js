@@ -3,16 +3,25 @@ import React from "react";
 class FunFact extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {lower: 0, upper: 0}
+        this.state = {lower: 0, upper: 0, output: "", fact: props.fact}
         this.checkAnswer = this.checkAnswer.bind(this)
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.fact !== prevState.fact){
+            return {lower: 0, upper: 0, output: "", fact: nextProps.fact};
+        }
+        else return null;
     }
 
     checkAnswer(){
         if (this.state.lower <= this.props.answer && this.state.upper >= this.props.answer){
             console.log("Correct")
+            this.setState({output: "Correct! Answer was " + this.props.answer })
         }
         else{
             console.log("Wrong")
+            this.setState({output: "Wrong! Answer was " + this.props.answer})
         }
     }
 
@@ -29,6 +38,7 @@ class FunFact extends React.Component{
             <input type={"number"} id={"upper"} value={this.state.upper} onChange={ (event) => this.setState({upper: event.target.value})}/>
             <br />
             <button onClick={this.checkAnswer}> Check </button>
+            <p>{this.state.output}</p>
         </div>
         );
     }
