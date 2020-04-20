@@ -7,7 +7,7 @@ import FunFact from "./FunFact";
 class App extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {fact: "My horse is amazing"}
+        this.state = {fact: "My horse is amazing", answer: "Yes it is"}
     }
 
     updateFact(promise){
@@ -15,7 +15,7 @@ class App extends React.Component{
             let sentence = res[0]
             console.log(res[1])
             sentence = sentence.replace(res[1][0], "____")
-            this.setState({fact: sentence})
+            this.setState({fact: sentence, answer: parseInt(res[1][0])})
         })
     }
 
@@ -23,9 +23,9 @@ class App extends React.Component{
         return (
             <div className="App">
                 <button onClick={() => this.updateFact(findFact())}  >
-                    i am some text
+                    Find me a fact!
                 </button>
-                <FunFact fact={this.state.fact}/>
+                <FunFact fact={this.state.fact} answer={this.state.answer}/>
             </div>
         );
     }

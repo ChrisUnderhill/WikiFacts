@@ -31,7 +31,7 @@ function findFact(){
             do {
                 m = regex.exec(s);
                 if (m) {
-                    if (s.search("<") == -1) {
+                    if (s.search("<") === -1) {
                         return [s, m]
                     }
                 }
