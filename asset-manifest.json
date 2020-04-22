@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/WikiFacts/static/css/main.bbc74aa8.chunk.css",
-    "main.js": "/WikiFacts/static/js/main.73d7bf82.chunk.js",
-    "main.js.map": "/WikiFacts/static/js/main.73d7bf82.chunk.js.map",
+    "main.css": "/WikiFacts/static/css/main.044cb1b7.chunk.css",
+    "main.js": "/WikiFacts/static/js/main.6cc7f936.chunk.js",
+    "main.js.map": "/WikiFacts/static/js/main.6cc7f936.chunk.js.map",
     "runtime-main.js": "/WikiFacts/static/js/runtime-main.51ae5b86.js",
     "runtime-main.js.map": "/WikiFacts/static/js/runtime-main.51ae5b86.js.map",
     "static/js/2.ccd4409b.chunk.js": "/WikiFacts/static/js/2.ccd4409b.chunk.js",
     "static/js/2.ccd4409b.chunk.js.map": "/WikiFacts/static/js/2.ccd4409b.chunk.js.map",
     "index.html": "/WikiFacts/index.html",
-    "precache-manifest.adcf77bd0422f3a064a9958cdb5728d2.js": "/WikiFacts/precache-manifest.adcf77bd0422f3a064a9958cdb5728d2.js",
+    "precache-manifest.e6b5b2752c6b91f370d47f17a6620be1.js": "/WikiFacts/precache-manifest.e6b5b2752c6b91f370d47f17a6620be1.js",
     "service-worker.js": "/WikiFacts/service-worker.js",
-    "static/css/main.bbc74aa8.chunk.css.map": "/WikiFacts/static/css/main.bbc74aa8.chunk.css.map",
+    "static/css/main.044cb1b7.chunk.css.map": "/WikiFacts/static/css/main.044cb1b7.chunk.css.map",
     "static/js/2.ccd4409b.chunk.js.LICENSE.txt": "/WikiFacts/static/js/2.ccd4409b.chunk.js.LICENSE.txt",
     "static/media/wiki-logo.svg": "/WikiFacts/static/media/wiki-logo.0df50668.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.51ae5b86.js",
     "static/js/2.ccd4409b.chunk.js",
-    "static/css/main.bbc74aa8.chunk.css",
-    "static/js/main.73d7bf82.chunk.js"
+    "static/css/main.044cb1b7.chunk.css",
+    "static/js/main.6cc7f936.chunk.js"
   ]
 }
