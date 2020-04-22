@@ -24,19 +24,15 @@ function findFact(){
     return getPage(pickRandomDate())
         .then( (html) => getSummary(choose(findLinks(html))))
         .then( (json) => {
-            let s = json.extract
-            s = s.replace(/\[.*\]/, "")
-            let m
-            let regex = /[0-9]+\,?[0-9]*/g
-            do {
-                m = regex.exec(s);
-                if (m) {
-                    if (s.search("<") === -1) {
-                        return {question: s, answer: parseInt(m[0]), title: json.title}
-                    }
+            let s = json.extract;
+            s = s.replace(/\[.*\]/, "");
+            let regex = /[0-9]+,?[0-9]*/g;
+            let m = choose(regex.exec(s))
+            if (m) {
+                if (s.search("<") === -1) {
+                    return {question: s, answer: parseInt(m.replace(",", "")), title: json.title}
                 }
-            } while (m);
-
+            }
         })
 }
 

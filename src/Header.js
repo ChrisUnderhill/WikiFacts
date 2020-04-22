@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 
 
 function Header(props) {
-    return (<AppBar position="static" classes="darkgreen">
+    return (<AppBar position="static">
         <Toolbar>
             <Typography variant="h6" className="title">
                 WikiFacts
