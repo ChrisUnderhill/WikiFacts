@@ -46,8 +46,8 @@ function choose(choices) {
 }
 
 function pickRandomDate(){
-    let month = choose(["January", "February", "March", "April"])
-    let year = choose(["2019", "2018", "2017"])
+    let month = choose(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
+    let year = choose(["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004"])
     return "Wikipedia:Featured_article_candidates%2FFeatured_log%2F" + month + "_" + year
 }
 
