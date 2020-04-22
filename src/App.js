@@ -3,6 +3,7 @@ import './App.css';
 import {findFact} from "./WikiScraper";
 import FunFact from "./FunFact";
 import Loading from "./Loading";
+import HistoryElement from "./HistoryElement";
 
 function truncate(sentence){
     return sentence.substring(0, 50) + "..."
@@ -13,8 +14,9 @@ class App extends React.Component{
         super(props);
         this.state = {
             fact: "My horse is amazing",
+            title: "Title",
             answer: "Yes it is",
-            history: [],
+            history: [{question: "test question fdjksl frjf ej fjlk f jdks hfjkal hfk alhfjksl fhkrsal hfarl hfu ali"}],
             loading: false
         }
         this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this)
@@ -29,24 +31,25 @@ class App extends React.Component{
             let sentence = res.question
             sentence = sentence.replace(res.answer, "____")
             this.setState({
-                //loading: false,
+                loading: false,
                 fact: sentence,
                 answer: res.answer,
-                history: [...this.state.history, {question: res.title, answer: res.answer}]
+                title: res.title,
             })
         })
     }
 
     saveAnswerToHistory(lower, upper, correct){
         this.setState({
-            history: [...this.state.history.slice(0, this.state.history.length - 1),
-                {...this.state.history[this.state.history.length - 1], lower, upper, correct}]
+            history: [...this.state.history,
+                {question: this.state.title, answer: this.state.answer, lower, upper, correct}]
         })
     }
 
     render() {
         return (
             <div className="App">
+                <div className="quiz">
                 <button
                     disabled={this.state.loading}
                     onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
@@ -58,7 +61,10 @@ class App extends React.Component{
                     answer={this.state.answer}
                     saveAnswerToHistory={this.saveAnswerToHistory}
                 />}
-                <p>{JSON.stringify(this.state.history)}</p>
+                </div>
+                <div className="history">
+                {this.state.history.map(HistoryElement)}
+                </div>
             </div>
         );
     }

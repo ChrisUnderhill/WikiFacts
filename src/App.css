@@ -3,7 +3,18 @@
 .App {
   text-align: center;
   width: 600px;
-  margin: 0px calc(50% - 300px)
+  margin: 0px calc(50% - 300px);
+  display: flex;
+  flex-direction: row;
+}
+
+.quiz {
+  flex-basis: 200px;
+  flex-grow: 1;
+}
+
+.history {
+  flex-basis: 200px;
 }
 
 .App-logo {
@@ -80,4 +91,24 @@ input{
   border-width: 1px;
   padding: 2px;
   border-color: grey grey black grey;
+}
+
+.quiz {
+  padding: 5px;
+}
+
+.history-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+}
+
+.history-text {
+  display: inline;
+  flex-grow: 1;
+}
+
+h2, h3 {
+  margin: 0px;
 }
