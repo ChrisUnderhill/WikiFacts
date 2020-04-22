@@ -32,7 +32,7 @@ function findFact(){
                 m = regex.exec(s);
                 if (m) {
                     if (s.search("<") === -1) {
-                        return [s, m]
+                        return {question: s, answer: parseInt(m[0]), title: json.title}
                     }
                 }
             } while (m);

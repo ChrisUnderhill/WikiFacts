@@ -15,7 +15,9 @@ class FunFact extends React.Component{
     }
 
     checkAnswer(){
-        if (this.state.lower <= this.props.answer && this.state.upper >= this.props.answer){
+        let correct = this.state.lower <= this.props.answer && this.state.upper >= this.props.answer;
+        this.props.saveAnswerToHistory(this.state.lower, this.state.upper, correct)
+        if (correct){
             console.log("Correct")
             this.setState({output: "Correct! Answer was " + this.props.answer })
         }
