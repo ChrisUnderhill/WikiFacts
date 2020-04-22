@@ -1,12 +1,17 @@
+
+
 .App {
   text-align: center;
+  width: 600px;
+  margin: 0px calc(50% - 300px)
 }
 
 .App-logo {
   height: 40vmin;
+  width: 40vmin;
   pointer-events: none;
   display: block;
-  margin: 30px;
+  margin: 30px calc(50% - 20vmin);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -37,4 +42,42 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+button {
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 1.4em;
+  font-weight: bold;
+  border-style: none;
+  background-color: #60D060;
+  color: #282c34;
+}
+
+button:hover {
+  background-color: #30B030;
+}
+
+button:active{
+  border-color: #282c34;
+  border-style: solid;
+  border-width: 2px;
+  margin: 3px;
+}
+
+button[disabled]{
+  background-color: lightgray;
+  color: #484c54;
+}
+
+label{
+  font-weight: bold;
+}
+
+input{
+  border-style: solid ;
+  border-width: 1px;
+  padding: 2px;
+  border-color: grey grey black grey;
 }

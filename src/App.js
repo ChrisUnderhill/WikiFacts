@@ -47,8 +47,9 @@ class App extends React.Component{
     render() {
         return (
             <div className="App">
-                <center>
-                <button onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
+                <button
+                    disabled={this.state.loading}
+                    onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
                     Find me a fact!
                 </button>
                 {this.state.loading? <Loading/> :
@@ -58,7 +59,6 @@ class App extends React.Component{
                     saveAnswerToHistory={this.saveAnswerToHistory}
                 />}
                 <p>{JSON.stringify(this.state.history)}</p>
-                </center>
             </div>
         );
     }
