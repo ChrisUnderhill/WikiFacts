@@ -27,11 +27,10 @@ function findFact(){
             let s = json.extract;
             s = s.replace(/\[.*\]/, "");
             let regex = /[0-9]+,?[0-9]*/g;
-            let m = choose(regex.exec(s))
-            if (m) {
-                if (s.search("<") === -1) {
-                    return {question: s, answer: parseInt(m.replace(",", "")), title: json.title}
-                }
+            let matches = s.match(regex)
+            if (matches){
+                let m = choose(matches);
+                return {question: s, answer: parseInt(m.replace(",", "")), title: json.title}
             }
         })
 }
