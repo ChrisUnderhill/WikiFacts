@@ -25,12 +25,15 @@ function findFact(){
         .then( (html) => getSummary(choose(findLinks(html))))
         .then( (json) => {
             let s = json.extract;
+            if (!s){
+                return;
+            }
             s = s.replace(/\[.*\]/, "");
-            let regex = /[0-9]+,?[0-9]*/g;
+            let regex = /[0-9]+,?\.?[0-9]*/g;
             let matches = s.match(regex)
             if (matches){
                 let m = choose(matches);
-                return {question: s, answer: parseInt(m.replace(",", "")), title: json.title}
+                return {question: s, answer: m, title: json.title}
             }
         })
 }

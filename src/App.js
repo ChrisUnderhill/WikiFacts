@@ -56,7 +56,7 @@ class App extends React.Component{
             this.setState({
                 loading: false,
                 fact: sentence,
-                answer: res.answer,
+                answer: parseFloat(res.answer.replace(",","")),
                 title: res.title,
             })
         })
@@ -89,7 +89,7 @@ class App extends React.Component{
                 />}
                 </div>
                 <div className="history">
-                {this.state.history.map(HistoryElement)}
+                {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
                 </div>
             </div>
             </div>

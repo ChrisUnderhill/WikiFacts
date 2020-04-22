@@ -1,7 +1,7 @@
 import React from "react";
 
 function HistoryElement(props){
-    return (<div className="history-container">
+    return (<div className="history-container" key={props.key}>
         <h2 className="history-mark">{(
             props.correct ? <span style={{"color": "green"}}>&#10004;</span> :
                 props.correct === undefined ? <span style={{"color": "grey", "font-weight": "bolder"}}>&#9675;</span> :
