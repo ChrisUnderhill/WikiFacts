@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {findFact} from "./WikiScraper";
 import FunFact from "./FunFact";
+import Loading from "./Loading";
 
 function truncate(sentence){
     return sentence.substring(0, 50) + "..."
@@ -13,7 +14,8 @@ class App extends React.Component{
         this.state = {
             fact: "My horse is amazing",
             answer: "Yes it is",
-            history: []
+            history: [],
+            loading: false
         }
         this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this)
     }
@@ -27,6 +29,7 @@ class App extends React.Component{
             let sentence = res.question
             sentence = sentence.replace(res.answer, "____")
             this.setState({
+                loading: false,
                 fact: sentence,
                 answer: res.answer,
                 history: [...this.state.history, {question: res.title, answer: res.answer}]
@@ -44,15 +47,18 @@ class App extends React.Component{
     render() {
         return (
             <div className="App">
-                <button onClick={() => this.updateFact(findFact())}  >
+                <center>
+                <button onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
                     Find me a fact!
                 </button>
+                {this.state.loading? <Loading/> :
                 <FunFact
                     fact={this.state.fact}
                     answer={this.state.answer}
                     saveAnswerToHistory={this.saveAnswerToHistory}
-                />
+                />}
                 <p>{JSON.stringify(this.state.history)}</p>
+                </center>
             </div>
         );
     }

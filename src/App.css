@@ -5,11 +5,13 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  display: block;
+  margin: 30px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 5s cubic-bezier(0.4, 0.7, 1.0, 0.4);
   }
 }
 

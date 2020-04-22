@@ -27,7 +27,7 @@ function findFact(){
             let s = json.extract
             s = s.replace(/\[.*\]/, "")
             let m
-            let regex = /[0-9]+/g
+            let regex = /[0-9]+\,?[0-9]*/g
             do {
                 m = regex.exec(s);
                 if (m) {
