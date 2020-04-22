@@ -29,7 +29,7 @@ class App extends React.Component{
             let sentence = res.question
             sentence = sentence.replace(res.answer, "____")
             this.setState({
-                loading: false,
+                //loading: false,
                 fact: sentence,
                 answer: res.answer,
                 history: [...this.state.history, {question: res.title, answer: res.answer}]

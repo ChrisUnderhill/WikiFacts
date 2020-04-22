@@ -16,7 +16,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 3s cubic-bezier(.49,.14,.47,.85);
+    animation: App-logo-spin infinite 3s cubic-bezier(.5,-0.5,.5,1.5);
   }
 }
 
