@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d14c52b363c583e2d8bf01b60fcf054b",
+    "revision": "76ef6243436766d305d79b5ed199ebd1",
     "url": "/WikiFacts/index.html"
   },
   {
-    "revision": "e7d09767ef44780c02d2",
-    "url": "/WikiFacts/static/css/main.044cb1b7.chunk.css"
+    "revision": "57aa7cb7e6ec7213299e",
+    "url": "/WikiFacts/static/css/main.bbc74aa8.chunk.css"
   },
   {
-    "revision": "ecf48e385d919c869df6",
-    "url": "/WikiFacts/static/js/2.2509867e.chunk.js"
+    "revision": "ec940c6e3fc574eaf039",
+    "url": "/WikiFacts/static/js/2.ccd4409b.chunk.js"
   },
   {
     "revision": "983ad08861a1d34c72e4b00fdfd2fcd5",
-    "url": "/WikiFacts/static/js/2.2509867e.chunk.js.LICENSE.txt"
+    "url": "/WikiFacts/static/js/2.ccd4409b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e7d09767ef44780c02d2",
-    "url": "/WikiFacts/static/js/main.83aba1ff.chunk.js"
+    "revision": "57aa7cb7e6ec7213299e",
+    "url": "/WikiFacts/static/js/main.73d7bf82.chunk.js"
   },
   {
     "revision": "12275b9ee5bba94c308f",
