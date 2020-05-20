@@ -57,7 +57,7 @@ body {
 }
 
 
-button {
+.our-button {
   border-radius: 5px;
   margin: 5px;
   font-size: 1.4em;
@@ -67,18 +67,18 @@ button {
   color: var(--charcoal);
 }
 
-button:hover {
+.our-button:hover {
   background-color: var(--dark-green);
 }
 
-button:active{
+.our-button:active{
   border-color: var(--charcoal);
   border-style: solid;
   border-width: 2px;
   margin: 3px;
 }
 
-button[disabled]{
+.our-button[disabled]{
   background-color: lightgray;
   color: var(--disabled-grey);
 }
@@ -125,6 +125,9 @@ h2, h3 {
     width: 80%;
     margin: 0px 10%;
     flex-direction: row;
+  }
+  .history-text{
+    flex-grow: 1;
   }
 }
 @media only screen and (min-width: 1300px) {

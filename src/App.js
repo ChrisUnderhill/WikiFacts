@@ -80,7 +80,7 @@ class App extends React.Component{
                 <Header/>
             <div className="App">
                 <div className="quiz">
-                <button
+                <button className={"our-button"}
                     disabled={this.state.loading}
                     onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
                     Find me a fact!

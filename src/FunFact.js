@@ -39,7 +39,7 @@ class FunFact extends React.Component{
             <label htmlFor={"upper"}>Enter an upper bound: </label>
             <input type={"number"} id={"upper"} value={this.state.upper} onChange={ (event) => this.setState({upper: event.target.value})}/>
             <br />
-            <button disabled={this.state.output} onClick={this.checkAnswer}> Check </button>
+            <button className={"our-button"} disabled={this.state.output} onClick={this.checkAnswer}> Check </button>
             <p>{this.state.output}</p>
         </div>
         );
