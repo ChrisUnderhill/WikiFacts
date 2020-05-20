@@ -45,9 +45,9 @@ class App extends React.Component{
         this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this)
     }
 
-    updateFact(promise){
-        promise.then( (res) => {
-            if (res == undefined){
+    updateFact(promise) {
+        promise.then((res) => {
+            if (res == undefined) {
                 this.updateFact(findFact())
                 return
             }
@@ -56,7 +56,7 @@ class App extends React.Component{
             this.setState({
                 loading: false,
                 fact: sentence,
-                answer: parseFloat(res.answer.replace(",","")),
+                answer: parseFloat(res.answer.replace(",", "")),
                 title: res.title,
             })
         })
@@ -67,6 +67,10 @@ class App extends React.Component{
             history: [...this.state.history,
                 {question: this.state.title, answer: this.state.answer, lower, upper, correct}]
         })
+    }
+
+    getScore(){
+        return this.state.history.reduce( (a,b) => a + b.correct, 0 )
     }
 
     render() {
@@ -89,6 +93,7 @@ class App extends React.Component{
                 />}
                 </div>
                 <div className="history">
+                    <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
                 {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
                 </div>
             </div>

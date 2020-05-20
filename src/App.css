@@ -23,8 +23,13 @@ body {
   flex-grow: 1;
 }
 
+.score {
+  margin-bottom: 7px;
+}
+
 .history {
   flex-basis: 200px;
+  padding-top: 30px;
 }
 
 .App-logo {
