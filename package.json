@@ -38,6 +38,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "history": "^4.10.1",
+    "react-router": "^5.2.0"
   }
 }

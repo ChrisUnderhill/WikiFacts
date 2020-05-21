@@ -7,6 +7,11 @@ import HistoryElement from "./HistoryElement";
 import Header from "./Header";
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import {Route, Router} from "react-router";
+import { createBrowserHistory } from "history";
+import LoginPage from "./LoginPage";
+
+const history = createBrowserHistory();
 
 const theme = createMuiTheme({
     palette: {
@@ -78,25 +83,32 @@ class App extends React.Component{
             <ThemeProvider theme={theme} >
             <div>
                 <Header/>
-            <div className="App">
-                <div className="quiz">
-                <button className={"our-button"}
-                    disabled={this.state.loading}
-                    onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
-                    Find me a fact!
-                </button>
-                {this.state.loading? <Loading/> :
-                <FunFact
-                    fact={this.state.fact}
-                    answer={this.state.answer}
-                    saveAnswerToHistory={this.saveAnswerToHistory}
-                />}
-                </div>
-                <div className="history">
-                    <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
-                {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
-                </div>
-            </div>
+                <Router history={history} >
+                    <Route exact path={"/"}>
+                        <div className="App">
+                            <div className="quiz">
+                                <button className={"our-button"}
+                                        disabled={this.state.loading}
+                                        onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
+                                    Find me a fact!
+                                </button>
+                                {this.state.loading? <Loading/> :
+                                    <FunFact
+                                        fact={this.state.fact}
+                                        answer={this.state.answer}
+                                        saveAnswerToHistory={this.saveAnswerToHistory}
+                                    />}
+                            </div>
+                            <div className="history">
+                                <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
+                                {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
+                            </div>
+                        </div>
+                    </Route>
+                    <Route exact path={"/login"}>
+                        <LoginPage />
+                    </Route>
+                </Router>
             </div>
             </ThemeProvider>
         );
