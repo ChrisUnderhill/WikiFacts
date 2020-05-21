@@ -10,6 +10,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import {Route, Router} from "react-router";
 import { createBrowserHistory } from "history";
 import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 
 const history = createBrowserHistory();
 
@@ -107,6 +108,9 @@ class App extends React.Component{
                     </Route>
                     <Route exact path={"/login"}>
                         <LoginPage />
+                    </Route>
+                    <Route exact path={"/register"}>
+                        <RegisterPage />
                     </Route>
                 </Router>
             </div>

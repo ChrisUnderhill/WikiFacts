@@ -120,6 +120,14 @@ h2, h3 {
   flex-grow: 1;
 }
 
+.login-container {
+  width: 250px;
+  margin: 15px calc(50% - 125px);
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
 @media only screen and (min-width: 650px) {
   .App {
     width: 80%;

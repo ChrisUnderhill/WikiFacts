@@ -1,15 +1,17 @@
 import React from "react";
 
-class LoginPage extends React.Component {
+class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             username: "",
             password: "",
+            cpassword: "",
         }
 
         this.handleUserNameChange = this.handleUserNameChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.handleCPasswordChange = this.handleCPasswordChange.bind(this)
     }
 
     handleUserNameChange(event) {
@@ -20,9 +22,13 @@ class LoginPage extends React.Component {
         this.setState({password: event.target.value})
     }
 
+    handleCPasswordChange(event) {
+        this.setState({cpassword: event.target.value})
+    }
+
     render() {
         return <div className="login-container">
-            <h2>Hi, please log in!</h2>
+            <h2>Hi, please register!</h2>
             <br />
             <label htmlFor={"user"}>Username: </label>
             <input type={"text"} id={"user"} placeholder={"Username"} onChange={this.handleUserNameChange} />
@@ -30,9 +36,13 @@ class LoginPage extends React.Component {
             <label htmlFor={"pwd"}>Password: </label>
             <input type={"password"} id={"pwd"} placeholder={"Password"} onChange={this.handlePasswordChange}/>
             <br />
-            <button className={"our-button"} onClick={() => alert("YOU ARE THE 1,000,000 VISITOR TO THIS PAGE")}> Log In </button>
+            <label htmlFor={"cpwd"}>Confirm Password: </label>
+            <input type={"password"} id={"cpwd"} placeholder={"Password"} onChange={this.handleCPasswordChange}/>
+            <br />
+            {this.state.password === this.state.cpassword || <p>Passwords do not match!</p>}
+            <button className={"our-button"} disabled={this.state.password !== this.state.cpassword} onClick={() => alert("YOU ARE THE 1,000,001 VISITOR TO THIS PAGE")}> Register </button>
         </div>;
     }
 }
 
-export default LoginPage;
+export default RegisterPage;
