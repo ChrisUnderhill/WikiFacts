@@ -83,8 +83,8 @@ class App extends React.Component{
         return (
             <ThemeProvider theme={theme} >
             <div>
-                <Header/>
                 <Router history={history} >
+                    <Header/>
                     <Route exact path={"/"}>
                         <div className="App">
                             <div className="quiz">

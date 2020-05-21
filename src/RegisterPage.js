@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -41,6 +42,9 @@ class RegisterPage extends React.Component {
             <br />
             {this.state.password === this.state.cpassword || <p>Passwords do not match!</p>}
             <button className={"our-button"} disabled={this.state.password !== this.state.cpassword} onClick={() => alert("YOU ARE THE 1,000,001 VISITOR TO THIS PAGE")}> Register </button>
+            <br />
+            <p>Already have an account? <br/>
+                <Link to={"/login"}>Login here</Link> </p>
         </div>;
     }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -31,6 +32,8 @@ class LoginPage extends React.Component {
             <input type={"password"} id={"pwd"} placeholder={"Password"} onChange={this.handlePasswordChange}/>
             <br />
             <button className={"our-button"} onClick={() => alert("YOU ARE THE 1,000,000 VISITOR TO THIS PAGE")}> Log In </button>
+            <br />
+            <p>Don't have an account yet? <Link to={"/register"}>Register here</Link> </p>
         </div>;
     }
 }
