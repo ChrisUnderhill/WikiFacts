@@ -29,6 +29,7 @@ body {
 
 .history {
   flex-basis: 200px;
+  position: relative;
 }
 
 .App-logo {
@@ -37,6 +38,46 @@ body {
   pointer-events: none;
   display: block;
   margin: 30px calc(50% - 20vmin);
+}
+
+.hover-trigger{
+  width: 25px;
+  height: 25px;
+}
+
+.hover-tip {
+  position: absolute;
+  right: 40px;
+  background-color: white;
+  padding: 10px;
+  margin: 0px;
+  border-style: solid;
+  border-color: black;
+  max-width: 150px;
+}
+
+.hover-tip p {
+  margin: 0px;
+}
+
+.hover-trigger + .hover-tip {
+  display: none;
+}
+
+.hover-trigger:hover + .hover-tip {
+  display: block;
+}
+
+.p-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-text {
+  flex-grow: 1;
+  max-width: 200px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -7,7 +7,6 @@ Register for new account page
 I forgot my password page
 Route pages
 Track page use
-Make it explicitly have confidence intervals
 
 Backend
 Let people register

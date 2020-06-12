@@ -12,6 +12,8 @@ import {Route, Router} from "react-router";
 import { createBrowserHistory } from "history";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+import cumulativeBinomialProbability from "binomial-probability"
+import tip from "./tip.png";
 
 const history = createBrowserHistory();
 
@@ -50,7 +52,8 @@ class App extends React.Component{
             loading: false,
             confidence: 90,
         }
-        this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this)
+        this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this);
+        this.getPValue = this.getPValue.bind(this);
     }
 
     updateFact(promise) {
@@ -79,6 +82,15 @@ class App extends React.Component{
 
     getScore(){
         return this.state.history.reduce( (a,b) => a + b.correct, 0 )
+    }
+
+    getPValue(confidence, score, n_trials){
+        let expected = confidence * n_trials / 100;
+        if (expected < score) {
+            return cumulativeBinomialProbability(n_trials, score, confidence / 100);
+        } else {
+            return cumulativeBinomialProbability(n_trials, n_trials - score, 1- (confidence / 100));
+        }
     }
 
     render() {
@@ -113,7 +125,14 @@ class App extends React.Component{
                                 <div className="history">
                                     <h2>Confidence: {this.state.confidence}%</h2>
                                     <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
-                                    <p className="hover-tip"><em>p</em>-value: {this.state.p}</p>
+                                    <div className="p-container">
+                                        <p className="p-text"><em>p</em>-value:&nbsp;
+                                            {this.getPValue(this.state.confidence, this.getScore(), this.state.history.length).toFixed(3)}</p>
+                                        <img src={tip} className="hover-trigger"/>
+                                        <div className="hover-tip">
+                                            <p>A <em>p</em>-value tells you the proability of getting a score at least this extreme</p>
+                                        </div>
+                                    </div>
                                     {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
                                 </div>
                             </div>
