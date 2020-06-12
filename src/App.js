@@ -12,7 +12,6 @@ import {Route, Router} from "react-router";
 import { createBrowserHistory } from "history";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import ConfidenceInterval from "./ConfidenceInterval";
 
 const history = createBrowserHistory();
 
@@ -48,7 +47,8 @@ class App extends React.Component{
             title: "Title",
             answer: undefined,
             history: [],
-            loading: false
+            loading: false,
+            confidence: 90,
         }
         this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this)
     }
@@ -88,7 +88,9 @@ class App extends React.Component{
                     <Router history={history} >
                         <Header/>
                         <Route exact path={"/"}>
-                            <Home />
+                            <div className="App">
+                                <Home confidence={this.state.confidence} onChange={c => this.setState({confidence: c})}/>
+                            </div>
                         </Route>
                         <Route exact path={"/play"}>
                             <div className="App">
@@ -109,7 +111,9 @@ class App extends React.Component{
                                     </div>
                                 </div>
                                 <div className="history">
+                                    <h2>Confidence: {this.state.confidence}%</h2>
                                     <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
+                                    <p className="hover-tip"><em>p</em>-value: {this.state.p}</p>
                                     {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
                                 </div>
                             </div>
