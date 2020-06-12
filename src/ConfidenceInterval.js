@@ -16,18 +16,20 @@ const marks = [
         label: '50%',
     },
     {
-        value: 33,
+        value: 1,
         label: '75%',
     },
     {
-        value: 67,
+        value: 2,
         label: '90%',
     },
     {
-        value: 100,
+        value: 3,
         label: '95%',
     },
 ];
+
+const values = [50,75,90,95]
 
 function valuetext(value) {
     return `${value}%`;
@@ -37,7 +39,7 @@ function valueLabelFormat(value) {
     return marks.findIndex((mark) => mark.value === value) + 1;
 }
 
-export default function DiscreteSlider() {
+export default function DiscreteSlider(props) {
     const classes = useStyles();
 
     return (
@@ -46,13 +48,15 @@ export default function DiscreteSlider() {
                 How confident are you?
             </Typography>
             <Slider
-                defaultValue={67}
+                value={values.indexOf(props.value)}
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider-confidence"
                 step={null}
                 valueLabelDisplay="off"
+                max={3}
                 marks={marks}
+                onChange={(e,v) => props.onChange(values[v])}
             />
         </div>
     );

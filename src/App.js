@@ -3,6 +3,7 @@ import './App.css';
 import {findFact} from "./WikiScraper";
 import FunFact from "./FunFact";
 import Loading from "./Loading";
+import Home from "./Home";
 import HistoryElement from "./HistoryElement";
 import Header from "./Header";
 import { ThemeProvider } from '@material-ui/styles';
@@ -87,6 +88,9 @@ class App extends React.Component{
                     <Router history={history} >
                         <Header/>
                         <Route exact path={"/"}>
+                            <Home />
+                        </Route>
+                        <Route exact path={"/play"}>
                             <div className="App">
                                 <div className="quiz">
                                     <div className="question-container">
