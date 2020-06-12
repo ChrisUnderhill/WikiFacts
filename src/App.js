@@ -11,6 +11,7 @@ import {Route, Router} from "react-router";
 import { createBrowserHistory } from "history";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+import ConfidenceInterval from "./ConfidenceInterval";
 
 const history = createBrowserHistory();
 
@@ -82,38 +83,41 @@ class App extends React.Component{
     render() {
         return (
             <ThemeProvider theme={theme} >
-            <div>
-                <Router history={history} >
-                    <Header/>
-                    <Route exact path={"/"}>
-                        <div className="App">
-                            <div className="quiz">
-                                <button className={"our-button"}
-                                        disabled={this.state.loading}
-                                        onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
-                                    Find me a fact!
-                                </button>
-                                {this.state.loading? <Loading/> :
-                                    <FunFact
-                                        fact={this.state.fact}
-                                        answer={this.state.answer}
-                                        saveAnswerToHistory={this.saveAnswerToHistory}
-                                    />}
+                <div>
+                    <Router history={history} >
+                        <Header/>
+                        <Route exact path={"/"}>
+                            <div className="App">
+                                <div className="quiz">
+                                    <div className="question-container">
+                                        <button className={"our-button"}
+                                                disabled={this.state.loading}
+                                                onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
+                                            Find me a fact!
+                                        </button>
+                                        {this.state.loading? <Loading/> :
+                                            <FunFact
+                                                fact={this.state.fact}
+                                                answer={this.state.answer}
+                                                saveAnswerToHistory={this.saveAnswerToHistory}
+                                            />
+                                        }
+                                    </div>
+                                </div>
+                                <div className="history">
+                                    <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
+                                    {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
+                                </div>
                             </div>
-                            <div className="history">
-                                <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
-                                {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
-                            </div>
-                        </div>
-                    </Route>
-                    <Route exact path={"/login"}>
-                        <LoginPage />
-                    </Route>
-                    <Route exact path={"/register"}>
-                        <RegisterPage />
-                    </Route>
-                </Router>
-            </div>
+                        </Route>
+                        <Route exact path={"/login"}>
+                            <LoginPage />
+                        </Route>
+                        <Route exact path={"/register"}>
+                            <RegisterPage />
+                        </Route>
+                    </Router>
+                </div>
             </ThemeProvider>
         );
     }
