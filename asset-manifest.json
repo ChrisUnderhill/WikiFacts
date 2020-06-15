@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/WikiFacts/static/css/main.044cb1b7.chunk.css",
-    "main.js": "/WikiFacts/static/js/main.6cc7f936.chunk.js",
-    "main.js.map": "/WikiFacts/static/js/main.6cc7f936.chunk.js.map",
-    "runtime-main.js": "/WikiFacts/static/js/runtime-main.51ae5b86.js",
-    "runtime-main.js.map": "/WikiFacts/static/js/runtime-main.51ae5b86.js.map",
-    "static/js/2.ccd4409b.chunk.js": "/WikiFacts/static/js/2.ccd4409b.chunk.js",
-    "static/js/2.ccd4409b.chunk.js.map": "/WikiFacts/static/js/2.ccd4409b.chunk.js.map",
-    "index.html": "/WikiFacts/index.html",
-    "precache-manifest.e6b5b2752c6b91f370d47f17a6620be1.js": "/WikiFacts/precache-manifest.e6b5b2752c6b91f370d47f17a6620be1.js",
-    "service-worker.js": "/WikiFacts/service-worker.js",
-    "static/css/main.044cb1b7.chunk.css.map": "/WikiFacts/static/css/main.044cb1b7.chunk.css.map",
-    "static/js/2.ccd4409b.chunk.js.LICENSE.txt": "/WikiFacts/static/js/2.ccd4409b.chunk.js.LICENSE.txt",
-    "static/media/wiki-logo.svg": "/WikiFacts/static/media/wiki-logo.0df50668.svg"
+    "main.css": "./static/css/main.bbe6932d.chunk.css",
+    "main.js": "./static/js/main.832489b8.chunk.js",
+    "main.js.map": "./static/js/main.832489b8.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.9288cc4c.js",
+    "runtime-main.js.map": "./static/js/runtime-main.9288cc4c.js.map",
+    "static/js/2.e19f8962.chunk.js": "./static/js/2.e19f8962.chunk.js",
+    "static/js/2.e19f8962.chunk.js.map": "./static/js/2.e19f8962.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.274a48f7de512633966380a0cc1111d3.js": "./precache-manifest.274a48f7de512633966380a0cc1111d3.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.bbe6932d.chunk.css.map": "./static/css/main.bbe6932d.chunk.css.map",
+    "static/js/2.e19f8962.chunk.js.LICENSE.txt": "./static/js/2.e19f8962.chunk.js.LICENSE.txt",
+    "static/media/tip.png": "./static/media/tip.464fb1c0.png",
+    "static/media/wiki-logo.svg": "./static/media/wiki-logo.0df50668.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.51ae5b86.js",
-    "static/js/2.ccd4409b.chunk.js",
-    "static/css/main.044cb1b7.chunk.css",
-    "static/js/main.6cc7f936.chunk.js"
+    "static/js/runtime-main.9288cc4c.js",
+    "static/js/2.e19f8962.chunk.js",
+    "static/css/main.bbe6932d.chunk.css",
+    "static/js/main.832489b8.chunk.js"
   ]
 }
