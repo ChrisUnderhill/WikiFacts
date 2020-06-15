@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {Redirect} from "react-router";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -7,10 +8,12 @@ class LoginPage extends React.Component {
         this.state = {
             username: "",
             password: "",
+            redirectToHome: false,
         }
 
         this.handleUserNameChange = this.handleUserNameChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.sendLoginRequest     = this.sendLoginRequest.bind(this)
     }
 
     handleUserNameChange(event) {
@@ -21,7 +24,30 @@ class LoginPage extends React.Component {
         this.setState({password: event.target.value})
     }
 
+    sendLoginRequest(){
+        fetch("/api/login", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify(
+                {
+                    username: this.state.username,
+                    password: this.state.password
+                })
+        }).then((res) => {
+            if (res.status !== 200){
+                alert("ERROR!!!!!!!!!!!!!!!!! " + res.status)
+            } else{
+                this.setState({redirectToHome: true})
+            }
+        })
+    }
+
     render() {
+        if (this.state.redirectToHome){
+            return <Redirect to={"/"} />
+        }
         return <div className="login-container">
             <h2>Hi, please log in!</h2>
             <br />
@@ -31,7 +57,7 @@ class LoginPage extends React.Component {
             <label htmlFor={"pwd"}>Password: </label>
             <input type={"password"} id={"pwd"} placeholder={"Password"} onChange={this.handlePasswordChange}/>
             <br />
-            <button className={"our-button"} onClick={() => alert("YOU ARE THE 1,000,000 VISITOR TO THIS PAGE")}> Log In </button>
+            <button className={"our-button"} onClick={this.sendLoginRequest}> Log In </button>
             <br />
             <p>Don't have an account yet? <Link to={"/register"}>Register here</Link> </p>
         </div>;

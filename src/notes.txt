@@ -2,9 +2,9 @@ We should make a version of this where it gives you a location and you have to p
 ?Should not pick days of the month
 Get numbers from the box
 Align the input boxes
-Login Page
 Register for new account page
 I forgot my password page
+Don't let people check their answers to the title page
 
 Backend
 Let people register

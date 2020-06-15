@@ -30,7 +30,10 @@ class RegisterPage extends React.Component {
     }
     
     sendRegisterRequest(){
-        fetch("url", {
+        fetch("/api/register", {
+            headers: {
+                "Content-Type": "application/json"
+            },
             method: "POST",
             body: JSON.stringify(
                 {
@@ -38,7 +41,7 @@ class RegisterPage extends React.Component {
                     password: this.state.password
                 })
         }).then((res) => {
-            if (res.status == 200){
+            if (res.status !== 200){
                 alert("ERROR!!!!!!!!!!!!!!!!! " + res.status)
             } else{
                 this.setState({redirectToLogin: true})
