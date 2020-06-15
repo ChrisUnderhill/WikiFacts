@@ -8,7 +8,7 @@ import HistoryElement from "./HistoryElement";
 import Header from "./Header";
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import {Route, Router} from "react-router";
+import {Route, Router, Switch} from "react-router";
 import { createBrowserHistory } from "history";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
@@ -99,50 +99,55 @@ class App extends React.Component{
                 <div>
                     <Router history={history} >
                         <Header/>
-                        <Route exact path={"/"}>
-                            <div className="App">
-                                <Home confidence={this.state.confidence} onChange={c => this.setState({confidence: c})}/>
-                            </div>
-                        </Route>
-                        <Route exact path={"/play"}>
-                            <div className="App">
-                                <div className="quiz">
-                                    <div className="question-container">
-                                        <button className={"our-button"}
-                                                disabled={this.state.loading}
-                                                onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
-                                            Find me a fact!
-                                        </button>
-                                        {this.state.loading? <Loading/> :
-                                            <FunFact
-                                                fact={this.state.fact}
-                                                answer={this.state.answer}
-                                                saveAnswerToHistory={this.saveAnswerToHistory}
-                                            />
-                                        }
-                                    </div>
+                        <Switch>
+                            <Route exact path={"/"}>
+                                <div className="App">
+                                    <Home confidence={this.state.confidence} onChange={c => this.setState({confidence: c})}/>
                                 </div>
-                                <div className="history">
-                                    <h2>Confidence: {this.state.confidence}%</h2>
-                                    <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
-                                    <div className="p-container">
-                                        <p className="p-text"><em>p</em>-value:&nbsp;
-                                            {this.getPValue(this.state.confidence, this.getScore(), this.state.history.length).toFixed(3)}</p>
-                                        <img src={tip} className="hover-trigger"/>
-                                        <div className="hover-tip">
-                                            <p>A <em>p</em>-value tells you the proability of getting a score at least this extreme</p>
+                            </Route>
+                            <Route exact path={"/play"}>
+                                <div className="App">
+                                    <div className="quiz">
+                                        <div className="question-container">
+                                            <button className={"our-button"}
+                                                    disabled={this.state.loading}
+                                                    onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
+                                                Find me a fact!
+                                            </button>
+                                            {this.state.loading? <Loading/> :
+                                                <FunFact
+                                                    fact={this.state.fact}
+                                                    answer={this.state.answer}
+                                                    saveAnswerToHistory={this.saveAnswerToHistory}
+                                                />
+                                            }
                                         </div>
                                     </div>
-                                    {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
+                                    <div className="history">
+                                        <h2>Confidence: {this.state.confidence}%</h2>
+                                        <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
+                                        <div className="p-container">
+                                            <p className="p-text"><em>p</em>-value:&nbsp;
+                                                {this.getPValue(this.state.confidence, this.getScore(), this.state.history.length).toFixed(3)}</p>
+                                            <img src={tip} className="hover-trigger"/>
+                                            <div className="hover-tip">
+                                                <p>A <em>p</em>-value tells you the probability of getting a score at least this extreme</p>
+                                            </div>
+                                        </div>
+                                        {this.state.history.map(x => HistoryElement({...x, key: x.question + JSON.stringify(x.correct)}))}
+                                    </div>
                                 </div>
-                            </div>
-                        </Route>
-                        <Route exact path={"/login"}>
-                            <LoginPage />
-                        </Route>
-                        <Route exact path={"/register"}>
-                            <RegisterPage />
-                        </Route>
+                            </Route>
+                            <Route exact path={"/login"}>
+                                <LoginPage />
+                            </Route>
+                            <Route exact path={"/register"}>
+                                <RegisterPage />
+                            </Route>
+                            <Route path={"/*"}>
+                                <center><h2>Congratulations on finding our 404 page!</h2></center>
+                            </Route>
+                        </Switch>
                     </Router>
                 </div>
             </ThemeProvider>

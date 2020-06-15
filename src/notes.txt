@@ -5,8 +5,6 @@ Align the input boxes
 Login Page
 Register for new account page
 I forgot my password page
-Route pages
-Track page use
 
 Backend
 Let people register
