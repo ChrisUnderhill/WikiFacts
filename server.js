@@ -36,8 +36,18 @@ app.post('/api/register', function (req, res) {
     }
 });
 
+app.post('/api/update', function (req, res) {
+    if (req.body.auth === process.env.UPDATE_SECRET) {
+        res.status(200)
+        return res.send("Success!");
+    }
+    else {
+        res.status(404)
+    }
+});
+
 app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 5000);

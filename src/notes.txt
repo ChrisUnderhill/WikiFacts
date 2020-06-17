@@ -2,11 +2,12 @@ We should make a version of this where it gives you a location and you have to p
 ?Should not pick days of the month
 Get numbers from the box
 Align the input boxes
-Register for new account page
 I forgot my password page
 Don't let people check their answers to the title page
+Make the 404 actually send 404
 
 Backend
+Store usernames and passwords sensibly
 Let people register
 Let people try to login
 Let people request password resets
