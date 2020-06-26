@@ -37,12 +37,15 @@ app.post('/api/register', function (req, res) {
 });
 
 app.post('/api/update', function (req, res) {
+    console.log(req.body)
+    console.log(process.env.UPDATE_SECRET)
     if (req.body.auth === process.env.UPDATE_SECRET) {
         res.status(200)
-        return res.send("Success!");
+        return res.send(req.body);
     }
     else {
         res.status(404)
+	res.send()
     }
 });
 
