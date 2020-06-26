@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
+const {spawn} = require("child_process");
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(bodyParser.json())
@@ -41,6 +42,7 @@ app.post('/api/update', function (req, res) {
     console.log(process.env.UPDATE_SECRET)
     if (req.body.auth === process.env.UPDATE_SECRET) {
         res.status(200)
+	updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
         return res.send(req.body);
     }
     else {
