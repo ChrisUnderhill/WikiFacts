@@ -58,11 +58,16 @@ app.post('/api/update', function (req, res) {
     const hmac = crypto.createHmac('sha1', process.env.UPDATE_SECRET)
     const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
     const checksum = Buffer.from(sig, 'utf8')
+
+    console.log("digest, ", digest)
+    console.log("checksum, ", checksum)
+
     if (checksum.length !== digest.length || !crypto.timingSafeEqual(digest, checksum)) {
         res.status(404)
         res.send();
         return;
     }
+
     res.status(200)
 	let updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
     res.send()
