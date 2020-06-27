@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
-const app = express();
 const {spawn} = require("child_process");
+const crypto = require('crypto')
+
+const app = express();
+
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(bodyParser.json())
@@ -45,17 +48,24 @@ app.post('/api/register', function (req, res) {
 });
 
 app.post('/api/update', function (req, res) {
-    console.log(req.body)
-    console.log(process.env.UPDATE_SECRET)
-    if (req.body.auth === process.env.UPDATE_SECRET) {
-        res.status(200)
-	let updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
-        return res.send(req.body);
-    }
-    else {
+    const payload = JSON.stringify(req.body)
+    if (!payload) {
         res.status(404)
-	res.send()
+        res.send();
+        return;
     }
+    const sig = req.body || ''
+    const hmac = crypto.createHmac('sha1', process.env.UPDATE_SECRET)
+    const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
+    const checksum = Buffer.from(sig, 'utf8')
+    if (checksum.length !== digest.length || !crypto.timingSafeEqual(digest, checksum)) {
+        res.status(404)
+        res.send();
+        return;
+    }
+    res.status(200)
+	let updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
+    res.send()
 });
 
 const react_paths=["/","/play", "/login", "/register"]
