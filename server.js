@@ -54,7 +54,7 @@ app.post('/api/update', function (req, res) {
         res.send();
         return;
     }
-    const sig = req.body || ''
+    const sig = req.get("X-Hub-Signature") || ''
     const hmac = crypto.createHmac('sha1', process.env.UPDATE_SECRET)
     const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
     const checksum = Buffer.from(sig, 'utf8')
