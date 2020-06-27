@@ -58,7 +58,7 @@ class App extends React.Component{
 
     updateFact(promise) {
         promise.then((res) => {
-            if (res == undefined) {
+            if (res === undefined) {
                 this.updateFact(findFact())
                 return
             }
