@@ -1,0 +1,13 @@
+name: update server
+on: 
+    push:
+        branches:
+         - master
+runs-on: ubuntu-latest
+
+jobs:
+    build:
+        name: update
+        steps:
+         - name: poke the server	
+           run: curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "New item", "auth": "$UPDATE_SECRET"}' https://wikifacts.tech/api/update

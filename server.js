@@ -51,7 +51,12 @@ app.post('/api/update', function (req, res) {
     }
 });
 
+const react_paths=["/","/play", "/login", "/register"]
+
 app.get('/*', function (req, res) {
+    if (!react_paths.includes(req.originalUrl)){
+        res.status(404);
+    }
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 

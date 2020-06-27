@@ -144,7 +144,7 @@ class App extends React.Component{
                             <Route exact path={"/register"}>
                                 <RegisterPage />
                             </Route>
-                            <Route path={"/*"}>
+                            <Route path={"/*"} status={404}>
                                 <center><h2>Congratulations on finding our 404 page!</h2></center>
                             </Route>
                         </Switch>

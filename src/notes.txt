@@ -4,7 +4,6 @@ Get numbers from the box
 Align the input boxes
 I forgot my password page
 Don't let people check their answers to the title page
-Make the 404 actually send 404
 
 Backend
 Store usernames and passwords sensibly
