@@ -49,7 +49,7 @@ app.post('/api/update', function (req, res) {
     console.log(process.env.UPDATE_SECRET)
     if (req.body.auth === process.env.UPDATE_SECRET) {
         res.status(200)
-	updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
+	let updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
         return res.send(req.body);
     }
     else {
