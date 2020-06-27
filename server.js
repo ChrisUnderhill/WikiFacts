@@ -8,9 +8,10 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json())
 
 app.use(function (req,res,next) {
-    console.log("GOT A REQUEST");g
+    console.log("GOT A REQUEST");
     console.log(req.body);
     console.log();
+    next();
 });
 
 app.post('/api/login', function (req, res) {
