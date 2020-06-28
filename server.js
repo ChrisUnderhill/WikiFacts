@@ -59,6 +59,8 @@ app.post('/api/update', function (req, res) {
     const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
     const checksum = Buffer.from(sig, 'utf8')
 
+    console.log("sig, ", sig)
+    console.log("hmac, ", hmac)
     console.log("digest, ", digest)
     console.log("checksum, ", checksum)
 
@@ -84,4 +86,4 @@ app.get('/*', function (req, res) {
 
 app.listen(process.env.PORT || 5000);
 
-//testing webhook yay
+//testing webhook yayayay
