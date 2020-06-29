@@ -14,7 +14,9 @@ let useDB = false;
 try {
     var con = mysql.createConnection({
         host: "localhost",
-        multipleStatements: true
+	user: "newuser",
+	password: "password",
+        multipleStatements: true,
     });
 
     con.connect(function(err) {
