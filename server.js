@@ -3,8 +3,24 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const {spawn} = require("child_process");
 const crypto = require('crypto')
+var bcrypt = require('bcryptjs');
+var mysql = require('mysql');
+const fs = require('fs');
 
 const app = express();
+
+var con = mysql.createConnection({
+    host: "localhost",
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected to MySQL!");
+    fs.readFile('createdb.sql', (err, data) => {
+        if (err) throw err;
+        con.query(data);
+    });
+});
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -19,32 +35,49 @@ app.use(function (req,res,next) {
 
 app.post('/api/login', function (req, res) {
     console.log(req.body);
-    if (req.body.username === "Simon") {
-        res.status(401)
-        return res.send("lolNope!");
+    if (!(req.body.username && req.body.password)){
+        res.status(400);
+        res.send("That's not how you login");
+        return;
     }
-    else if (req.body.username === "Chris"){
-        return res.send("Hello!");
-    }
-    else {
-        res.status(401)
-        return res.send("No such user!");
-    }
+    con.query(
+        "SELECT * FROM users WHERE name=?", [req.body.username], (err, res) => {
+        if (err || !res || res.length!==1) {
+            res.status(401);
+            res.send("No");
+        } else {
+            if (bcrypt.compareSync("B4c0/\/", res[0].hash)){
+                res.send("yay!")
+            } else {
+                res.status(401);
+                res.send("No");
+            }
+        }
+    });
 });
 
 app.post('/api/register', function (req, res) {
     console.log(req.body);
-    if (req.body.username === "Simon") {
-        res.status(401)
-        return res.send("lolNope!");
+    let username = req.body.username;
+    let password = req.body.password;
+    if (!(username && password)) {
+        res.status(400);
+        res.send("That's not how you register")
+        return;
     }
-    else if (req.body.username === "Chris"){
-        return res.send("Hello!");
-    }
-    else {
-        res.status(418)
-        return res.send("Failed to Register!");
-    }
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(req.body.password, salt);
+    con.query(
+        "INSERT INTO users (name, hash) VALUES (?, ?)",
+        [req.body.username, req.body.password],
+        (err) => {
+            if (err) {
+                res.status(500);
+                res.send("No");
+            }
+        }
+    )
+    // TODO no duplicate usernames
 });
 
 app.post('/api/update', function (req, res) {
