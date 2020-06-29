@@ -9,18 +9,27 @@ const fs = require('fs');
 
 const app = express();
 
-var con = mysql.createConnection({
-    host: "localhost",
-});
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected to MySQL!");
-    fs.readFile('createdb.sql', (err, data) => {
-        if (err) throw err;
-        con.query(data);
+let useDB = false;
+try {
+    var con = mysql.createConnection({
+        host: "localhost",
     });
-});
+
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log("Connected to MySQL!");
+        fs.readFile('createdb.sql', 'utf8', (err, data) => {
+            if (err) throw err;
+            else {
+                con.query(data);
+                useDB = true;
+            }
+        });
+    });
+} catch {
+    console.log("Database is sad :(")
+}
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -33,7 +42,21 @@ app.use(function (req,res,next) {
     next();
 });
 
+app.use(function (req, res, next) {
+    try {
+        next();
+    } catch (err) {
+        res.status(500);
+        res.send("Server error");
+        console.warn(err);
+    }
+})
+
 app.post('/api/login', function (req, res) {
+    if (!useDB){
+        res.status(500);
+        res.send("Database error");
+    }
     console.log(req.body);
     if (!(req.body.username && req.body.password)){
         res.status(400);
@@ -57,6 +80,10 @@ app.post('/api/login', function (req, res) {
 });
 
 app.post('/api/register', function (req, res) {
+    if (!useDB){
+        res.status(500);
+        res.send("Database error");
+    }
     console.log(req.body);
     let username = req.body.username;
     let password = req.body.password;
