@@ -14,6 +14,7 @@ let useDB = false;
 try {
     var con = mysql.createConnection({
         host: "localhost",
+        multipleStatements: true
     });
 
     con.connect(function(err) {
@@ -146,4 +147,3 @@ app.get('/*', function (req, res) {
 
 app.listen(process.env.PORT || 5000);
 
-//testing webhook yayayay
