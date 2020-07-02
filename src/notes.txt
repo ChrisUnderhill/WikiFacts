@@ -6,9 +6,7 @@ I forgot my password page
 Don't let people check their answers to the title page
 
 Backend
-Store usernames and passwords sensibly
-Let people register
-Let people try to login
+Make sessions persistent
 Let people request password resets
 Let people actually reset password
 Once logged in request and change personal data (eg score)

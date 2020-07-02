@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session')
 const bodyParser = require('body-parser')
 const path = require('path');
 const {spawn} = require("child_process");
@@ -36,12 +37,14 @@ try {
 
 app.use(express.static(path.join(__dirname, 'build')));
 
+app.use(session({
+    'secret': '343ji43j4n3jn4jk3n'
+}))
+
 app.use(bodyParser.json())
 
 app.use(function (req,res,next) {
-    console.log("GOT A REQUEST");
-    console.log(req.body);
-    console.log();
+    console.log(new Date().toString() +"|\tGot a request for " + req.url);
     next();
 });
 
@@ -68,16 +71,13 @@ app.post('/api/login', function (req, res) {
     }
     con.query(
         "SELECT * FROM users WHERE name=?", [req.body.username], (err, data) => {
-            console.log(data)
-            console.log(data[0])
-            console.log(data[0].HASH)
-            console.log(data[0].HASH.toString())
             if (err || !data || data.length!==1) {
                 res.status(401);
                 res.send("No");
             } else {
                 if (bcrypt.compareSync(req.body.password, data[0].HASH.toString())){
-                    res.send("yay!")
+                    req.session.username = req.body.username
+                    res.send("yay!\n" + req.session)
                 } else {
                     res.status(401);
                     res.send("No");
@@ -91,7 +91,6 @@ app.post('/api/register', function (req, res) {
         res.status(500);
         res.send("Database error");
     }
-    console.log(req.body);
     let username = req.body.username;
     let password = req.body.password;
     if (!(username && password)) {
@@ -129,10 +128,7 @@ app.post('/api/update', function (req, res) {
     const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
     const checksum = Buffer.from(sig, 'utf8')
 
-    console.log("sig, ", sig)
-    console.log("hmac, ", hmac)
-    console.log("digest, ", digest)
-    console.log("checksum, ", checksum)
+    console.log("Checksum for update ", checksum)
 
     if (checksum.length !== digest.length || !crypto.timingSafeEqual(digest, checksum)) {
         res.status(404)
