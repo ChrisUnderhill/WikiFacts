@@ -74,7 +74,7 @@ app.post('/api/login', function (req, res) {
                 res.status(401);
                 res.send("No");
             } else {
-                if (bcrypt.compareSync(req.body.password, data[0].hash)){
+                if (bcrypt.compareSync(req.body.password, data[0].HASH)){
                     res.send("yay!")
                 } else {
                     res.status(401);
