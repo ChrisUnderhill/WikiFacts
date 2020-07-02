@@ -10,13 +10,14 @@ class AccountPage extends React.Component {
 
     getUsernameFromSession(){
         fetch("/api/session")
-            .then( (res) => res.json())
             .then( (res) => {
             if (res.status !== 200){
                 alert("No session found!")
             }
             else{
-                this.setState({username: res.username})
+                res.json().then( (res) => {
+                    this.setState({username: res.username})
+                })
             }
         })
     }

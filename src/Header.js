@@ -24,7 +24,7 @@ function Header(props) {
                         WikiFacts
                     </Link></Typography>
                     {props.username ?
-                        <Link to={"/account"}><Button color="inherit">props.username</Button></Link>
+                        <Link to={"/account"}><Button color="inherit">{props.username}</Button></Link>
                         :
                         <Link to={"/login"}><Button color="inherit">Login</Button></Link>
                     }

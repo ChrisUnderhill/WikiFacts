@@ -116,6 +116,10 @@ app.post('/api/register', function (req, res) {
     // TODO no duplicate usernames
 });
 
+app.get('/api/session', function (req, res) {
+    res.send(req.session)
+});
+
 app.post('/api/update', function (req, res) {
     const payload = JSON.stringify(req.body)
     if (!payload) {
@@ -141,7 +145,7 @@ app.post('/api/update', function (req, res) {
     res.send()
 });
 
-const react_paths=["/","/play", "/login", "/register"]
+const react_paths=["/","/play", "/login", "/register", "/account"]
 
 app.get('/*', function (req, res) {
     if (!react_paths.includes(req.originalUrl)){
