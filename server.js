@@ -14,8 +14,8 @@ let useDB = false;
 try {
     var con = mysql.createConnection({
         host: "localhost",
-	user: "newuser",
-	password: "password",
+        user: "newuser",
+        password: "password",
         multipleStatements: true,
     });
 
@@ -99,11 +99,14 @@ app.post('/api/register', function (req, res) {
     var hash = bcrypt.hashSync(req.body.password, salt);
     con.query(
         "INSERT INTO users (name, hash) VALUES (?, ?)",
-        [req.body.username, req.body.password],
+        [req.body.username, hash],
         (err) => {
             if (err) {
                 res.status(500);
                 res.send("No");
+            }
+            else {
+                res.send("Successfully registered")
             }
         }
     )
