@@ -68,17 +68,19 @@ app.post('/api/login', function (req, res) {
     }
     con.query(
         "SELECT * FROM users WHERE name=?", [req.body.username], (err, data) => {
-        if (err || !data || data.length!==1) {
-            res.status(401);
-            res.send("No");
-        } else {
-            if (bcrypt.compareSync("B4c0/\/", data[0].hash)){
-                res.send("yay!")
-            } else {
+            console.log(data)
+            console.log(data[0])
+            if (err || !data || data.length!==1) {
                 res.status(401);
                 res.send("No");
+            } else {
+                if (bcrypt.compareSync(req.body.password, data[0].hash)){
+                    res.send("yay!")
+                } else {
+                    res.status(401);
+                    res.send("No");
+                }
             }
-        }
     });
 });
 
