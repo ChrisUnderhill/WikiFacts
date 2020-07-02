@@ -70,11 +70,13 @@ app.post('/api/login', function (req, res) {
         "SELECT * FROM users WHERE name=?", [req.body.username], (err, data) => {
             console.log(data)
             console.log(data[0])
+            console.log(data[0].HASH)
+            console.log(data[0].HASH.toString())
             if (err || !data || data.length!==1) {
                 res.status(401);
                 res.send("No");
             } else {
-                if (bcrypt.compareSync(req.body.password, data[0].HASH)){
+                if (bcrypt.compareSync(req.body.password, data[0].HASH.toString())){
                     res.send("yay!")
                 } else {
                     res.status(401);
