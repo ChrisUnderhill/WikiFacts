@@ -1,19 +1,25 @@
 import React from 'react';
+import {Route, Router, Switch} from "react-router";
+import cumulativeBinomialProbability from "binomial-probability"
+import { createBrowserHistory } from "history";
+
 import './App.css';
-import {findFact} from "./WikiScraper";
-import FunFact from "./FunFact";
-import Loading from "./Loading";
-import Home from "./Home";
-import HistoryElement from "./HistoryElement";
-import Header from "./Header";
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import {Route, Router, Switch} from "react-router";
-import { createBrowserHistory } from "history";
+
+import Home from "./Home";
+import FunFact from "./FunFact";
+import Loading from "./Loading";
+import HistoryElement from "./HistoryElement";
+import Header from "./Header";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import cumulativeBinomialProbability from "binomial-probability"
+import AccountPage from "./AccountPage";
+
+import {findFact} from "./WikiScraper";
+
 import tip from "./tip.png";
+
 
 const history = createBrowserHistory();
 
@@ -51,9 +57,11 @@ class App extends React.Component{
             history: [],
             loading: false,
             confidence: 90,
+            username: "",
         }
         this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this);
         this.getPValue = this.getPValue.bind(this);
+        this.updateUsername = this.updateUsername.bind(this);
     }
 
     updateFact(promise) {
@@ -93,16 +101,25 @@ class App extends React.Component{
         }
     }
 
+    updateUsername(username){
+        this.setState({username: username})
+    }
+
     render() {
         return (
             <ThemeProvider theme={theme} >
                 <div>
                     <Router history={history} >
-                        <Header/>
+                        <Header username={this.state.username}/>
                         <Switch>
                             <Route exact path={"/"}>
                                 <div className="App">
                                     <Home confidence={this.state.confidence} onChange={c => this.setState({confidence: c})}/>
+                                </div>
+                            </Route>
+                            <Route exact path={"/account"}>
+                                <div className="App">
+                                    <AccountPage />
                                 </div>
                             </Route>
                             <Route exact path={"/play"}>
@@ -139,7 +156,7 @@ class App extends React.Component{
                                 </div>
                             </Route>
                             <Route exact path={"/login"}>
-                                <LoginPage />
+                                <LoginPage updateUsername={this.updateUsername}/>
                             </Route>
                             <Route exact path={"/register"}>
                                 <RegisterPage />

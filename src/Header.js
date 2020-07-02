@@ -23,7 +23,11 @@ function Header(props) {
                     <Typography variant="h4" className="title"><Link to={"/"}>
                         WikiFacts
                     </Link></Typography>
-                    <Link to={"/login"}><Button color="inherit">Login</Button></Link>
+                    {props.username ?
+                        <Link to={"/account"}><Button color="inherit">props.username</Button></Link>
+                        :
+                        <Link to={"/login"}><Button color="inherit">Login</Button></Link>
+                    }
                 </Toolbar>
             </AppBar>
         </div>)

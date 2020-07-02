@@ -77,7 +77,7 @@ app.post('/api/login', function (req, res) {
             } else {
                 if (bcrypt.compareSync(req.body.password, data[0].HASH.toString())){
                     req.session.username = req.body.username
-                    res.send("yay!\n" + req.session)
+                    res.send("yay!\n" + JSON.stringify(req.session))
                 } else {
                     res.status(401);
                     res.send("No");

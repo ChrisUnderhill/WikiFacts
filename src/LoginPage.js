@@ -39,6 +39,7 @@ class LoginPage extends React.Component {
             if (res.status !== 200){
                 alert("ERROR!!!!!!!!!!!!!!!!! " + res.status)
             } else{
+                this.props.updateUsername(this.state.username)
                 this.setState({redirectToHome: true})
             }
         })
