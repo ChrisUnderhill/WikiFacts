@@ -164,9 +164,14 @@ app.post('/api/score', function (req, res) {
                 throw err;
             }
             if (data.length === 0){
-                con.query("INSERT INTO scores SET USERID=?, CORRECT=?, WRONG=?, CONFIDENCE=?"
-                [req.session.id, 0+correctness, 1-correctness, confidence],
-                        err => {if (err) throw err}
+                con.query("INSERT INTO scores SET ?",
+                    {
+                        USERID: req.session.id,
+                        CORRECT: 0 + correctness,
+                        WRONG: 1 - correctness,
+                        CONFIDENCE: confidence
+                    },
+                    err => {if (err) throw err}
                 )
                 return;
             }
