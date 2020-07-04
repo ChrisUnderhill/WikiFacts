@@ -78,7 +78,7 @@ app.post('/api/login', function (req, res) {
                 if (bcrypt.compareSync(req.body.password, data[0].HASH.toString())){
                     req.session.username = req.body.username;
                     console.log(data[0])
-                    req.session.id = data[0].ID;
+                    req.session.userid = data[0].ID;
                     res.send("yay!\n" + JSON.stringify(req.session))
                 } else {
                     res.status(401);
@@ -159,7 +159,7 @@ app.post('/api/score', function (req, res) {
    }
     let correctness = req.body.correct;
     con.query("SELECT * FROM scores WHERE USERID=? AND CONFIDENCE=?",
-       [req.session.id, confidence],
+       [req.session.userid, confidence],
        (err, data) => {
             if (err){
                 throw err;
@@ -167,7 +167,7 @@ app.post('/api/score', function (req, res) {
             if (data.length === 0){
                 con.query("INSERT INTO scores SET ?",
                     {
-                        USERID: req.session.id,
+                        USERID: req.session.userid,
                         CORRECT: 0 + correctness,
                         WRONG: 1 - correctness,
                         CONFIDENCE: confidence
@@ -180,14 +180,14 @@ app.post('/api/score', function (req, res) {
             let oldWrong = data[0].WRONG;
             if (correctness) {
                 con.query("UPDATE scores SET CORRECT=? WHERE USERID=? AND CONFIDENCE=?",
-                    [oldCorrect + 1, req.session.id, confidence], (err) => {
+                    [oldCorrect + 1, req.session.userid, confidence], (err) => {
                     if (err) {
                         throw err;
                     }
                     })
             } else {
                 con.query("UPDATE scores SET WRONG=? WHERE USERID=? AND CONFIDENCE=?",
-                    [oldWrong + 1, req.session.id, confidence], (err) => {
+                    [oldWrong + 1, req.session.userid, confidence], (err) => {
                         if (err) {
                             throw err;
                         }
