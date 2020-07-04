@@ -64,6 +64,20 @@ class App extends React.Component{
         this.updateUsername = this.updateUsername.bind(this);
     }
 
+    componentDidMount() {
+        this.updateUsername(fetch("/api/session")
+            .then( (res) => {
+                if (res.status !== 200){
+                    console.log("No session found!")
+                }
+                else{
+                    res.json().then( (res) => {
+                        this.setState({username: res.username})
+                    })
+                }
+            }))
+    }
+
     updateFact(promise) {
         promise.then((res) => {
             if (res === undefined) {
