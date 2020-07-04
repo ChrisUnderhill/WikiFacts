@@ -77,6 +77,7 @@ app.post('/api/login', function (req, res) {
             } else {
                 if (bcrypt.compareSync(req.body.password, data[0].HASH.toString())){
                     req.session.username = req.body.username;
+                    console.log(data[0])
                     req.session.id = data[0].ID;
                     res.send("yay!\n" + JSON.stringify(req.session))
                 } else {
@@ -193,6 +194,7 @@ app.post('/api/score', function (req, res) {
                     })
             }
        })
+    res.send("Success");
 });
 
 const react_paths=["/","/play", "/login", "/register", "/account"]
