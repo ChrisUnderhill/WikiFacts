@@ -100,6 +100,22 @@ class App extends React.Component{
             history: [...this.state.history,
                 {question: this.state.title, answer: this.state.answer, lower, upper, correct}]
         })
+        if (this.state.username){
+            fetch("/api/score", {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    correct: correct,
+                    confidence: this.state.confidence
+                })
+            }).then(res => {
+                if (res.status !== 200){
+                    console.log("aaaaaaaa could not save")
+                }
+            })
+        }
     }
 
     getScore(){

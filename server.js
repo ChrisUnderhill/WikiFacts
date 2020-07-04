@@ -76,7 +76,8 @@ app.post('/api/login', function (req, res) {
                 res.send("No");
             } else {
                 if (bcrypt.compareSync(req.body.password, data[0].HASH.toString())){
-                    req.session.username = req.body.username
+                    req.session.username = req.body.username;
+                    req.session.id = data[0].ID;
                     res.send("yay!\n" + JSON.stringify(req.session))
                 } else {
                     res.status(401);
@@ -143,6 +144,50 @@ app.post('/api/update', function (req, res) {
     res.status(200)
 	let updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
     res.send()
+});
+
+app.post('/api/score', function (req, res) {
+   if (!req.session.username) {
+       res.send("cool story bro")
+       return;
+   }
+   let confidence = req.body.confidence;
+   if (!confidence) {
+       res.status(400)
+       res.send("Bad request")
+   }
+    let correctness = req.body.correct;
+    con.query("SELECT * FROM scores WHERE USERID=? AND CONFIDENCE=?",
+       [req.session.id, confidence],
+       (err, data) => {
+            if (err){
+                throw err;
+            }
+            if (data.length === 0){
+                con.query("INSERT INTO scores (USERID, CORRECT, WRONG, CONFIDENCE) VALUES (?, ?, ?, ?)"
+                [req.session.id, 0+correctness, 1-correctness, confidence],
+                        err => {if (err) throw err}
+                )
+                return;
+            }
+            let oldCorrect = data[0].CORRECT;
+            let oldWrong = data[0].WRONG;
+            if (correctness) {
+                con.query("UPDATE scores SET CORRECT=? WHERE USERID=? AND CONFIDENCE=?",
+                    [oldCorrect + 1, req.session.id, confidence], (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    })
+            } else {
+                con.query("UPDATE scores SET WRONG=? WHERE USERID=? AND CONFIDENCE=?",
+                    [oldWrong + 1, req.session.id, confidence], (err) => {
+                        if (err) {
+                            throw err;
+                        }
+                    })
+            }
+       })
 });
 
 const react_paths=["/","/play", "/login", "/register", "/account"]
