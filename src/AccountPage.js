@@ -8,7 +8,8 @@ class AccountPage extends React.Component {
             scores: [],
         }
 
-        this.getUsernameFromSession = this.getUsernameFromSession.bind(this)
+        this.getUsernameFromSession = this.getUsernameFromSession.bind(this);
+        this.getScores = this.getScores.bind(this);
     }
 
     getUsernameFromSession(){
@@ -36,7 +37,8 @@ class AccountPage extends React.Component {
     }
 
     componentDidMount() {
-        this.getUsernameFromSession()
+        this.getUsernameFromSession();
+        this.getScores();
     }
 
     render(){
