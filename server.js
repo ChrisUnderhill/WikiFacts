@@ -122,6 +122,27 @@ app.get('/api/session', function (req, res) {
     res.send(req.session)
 });
 
+app.get('/api/scores', function (req, res) {
+    if (!req.session.userid){
+        res.status(403);
+        res.send("Log in first plz");
+        return;
+    }
+    con.query("SELECT * FROM scores WHERE USERID=?",
+        [req.session.userid],
+        (err, data) => {
+            if (err) {
+                throw err;
+            }
+            res.send(data.map(row => {return {
+                confidence: row.CONFIDENCE,
+                correct: row.CORRECT,
+                wrong: row.WRONG,
+            }}));
+        }
+    )
+});
+
 app.post('/api/update', function (req, res) {
     const payload = JSON.stringify(req.body)
     if (!payload) {
