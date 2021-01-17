@@ -164,7 +164,7 @@ app.post('/api/update', function (req, res) {
     }
 
     res.status(200)
-	let updateSite = spawn("bash", ["/home/ec2-user/updateSite.sh"])
+	let updateSite = spawn("bash", ["/home/pi/updateSite.sh"])
     res.send()
 });
 
