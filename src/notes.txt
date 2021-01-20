@@ -11,4 +11,6 @@ Let people request password resets
 Let people actually reset password
 Once logged in request and change personal data (eg score)
 Don't register with existing username
-
+Collect time series data
+history needs to reset when change confidence
+make a callibration score

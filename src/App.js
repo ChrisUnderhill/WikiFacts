@@ -61,6 +61,7 @@ class App extends React.Component{
         }
         this.saveAnswerToHistory = this.saveAnswerToHistory.bind(this);
         this.getPValue = this.getPValue.bind(this);
+        this.getPoints = this.getPoints.bind(this);
         this.updateUsername = this.updateUsername.bind(this);
     }
 
@@ -136,6 +137,14 @@ class App extends React.Component{
         }
     }
 
+    getPoints(confidence, score, n_trials){
+        if (n_trials === 0){
+            return 0;
+        }
+        let expected = Math.round(confidence * n_trials / 100);
+        return Math.floor( 100 * this.getPValue(confidence, score, n_trials) / this.getPValue(confidence, expected, n_trials));
+    }
+
     updateUsername(username){
         this.setState({username: username})
     }
@@ -178,6 +187,7 @@ class App extends React.Component{
                                     <div className="history">
                                         <h2>Confidence: {this.state.confidence}%</h2>
                                         <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
+                                        <p className="p-text no-margin"><b>Points: {this.getPoints(this.state.confidence, this.getScore(), this.state.history.length)}</b></p>
                                         <div className="p-container">
                                             <p className="p-text"><em>p</em>-value:&nbsp;
                                                 {this.getPValue(this.state.confidence, this.getScore(), this.state.history.length).toFixed(3)}</p>

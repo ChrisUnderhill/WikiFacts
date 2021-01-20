@@ -15,9 +15,9 @@ let useDB = false;
 try {
     var con = mysql.createConnection({
         host: "localhost",
-        user: "newuser",
+        user: "new_user",
         password: "password",
-        multipleStatements: true,
+        multipleStatements: true
     });
 
     con.connect(function(err) {
@@ -31,7 +31,7 @@ try {
             }
         });
     });
-} catch {
+} catch(err){
     console.log("Database is sad :(")
 }
 
@@ -77,7 +77,7 @@ app.post('/api/login', function (req, res) {
             } else {
                 if (bcrypt.compareSync(req.body.password, data[0].HASH.toString())){
                     req.session.username = req.body.username;
-                    console.log(data[0])
+                    //console.log(data[0])
                     req.session.userid = data[0].ID;
                     res.send("yay!\n" + JSON.stringify(req.session))
                 } else {
