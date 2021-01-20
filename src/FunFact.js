@@ -33,11 +33,27 @@ class FunFact extends React.Component{
             <p>
                 {this.props.fact}
             </p>
-            <label htmlFor={"lower"}>Enter a lower bound: </label>
-            <input type={"number"} id={"lower"} value={this.state.lower} onChange={ (event) => this.setState({lower: event.target.value})}/>
-            <br />
-            <label htmlFor={"upper"}>Enter an upper bound: </label>
-            <input type={"number"} id={"upper"} value={this.state.upper} onChange={ (event) => this.setState({upper: event.target.value})}/>
+            <center>
+            <table style={{"text-align": "right"}}>
+                <tr>
+                    <td>
+                        <label htmlFor={"lower"}>Enter a lower bound:</label>
+                    </td>
+                    <td>
+                        <input type={"number"} id={"lower"} value={this.state.lower} onChange={ (event) => this.setState({lower: event.target.value})}/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label htmlFor={"upper"}>Enter an upper bound:</label>
+                    </td>
+                    <td>
+                        <input type={"number"} id={"upper"} value={this.state.upper} onChange={ (event) => this.setState({upper: event.target.value})}/>
+                    </td>
+                </tr>
+            </table>
+            </center>
+
             <br />
             <button className={"our-button"} disabled={this.state.output} onClick={this.checkAnswer}> Check </button>
             <p>{this.state.output}</p>
