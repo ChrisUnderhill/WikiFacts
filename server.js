@@ -15,7 +15,7 @@ let useDB = false;
 try {
     var con = mysql.createConnection({
         host: "localhost",
-        user: "new_user",
+        user: "newuser",
         password: "password",
         multipleStatements: true
     });
@@ -100,22 +100,34 @@ app.post('/api/register', function (req, res) {
         res.send("That's not how you register")
         return;
     }
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(req.body.password, salt);
     con.query(
-        "INSERT INTO users (name, hash) VALUES (?, ?)",
-        [req.body.username, hash],
-        (err) => {
-            if (err) {
+        "SELECT * FROM users WHERE name = ?", [req.body.username],
+        (err, data) => {
+            if (err || !data || data.length > 0) {
                 res.status(500);
                 res.send("No");
             }
             else {
-                res.send("Successfully registered")
+                //Actually register
+                var salt = bcrypt.genSaltSync(10);
+                var hash = bcrypt.hashSync(req.body.password, salt);
+                con.query(
+                    "INSERT INTO users (name, hash) VALUES (?, ?)",
+                    [req.body.username, hash],
+                    (err) => {
+                        if (err) {
+                            res.status(500);
+                            res.send("No");
+                        }
+                        else {
+                            res.send("Successfully registered")
+                        }
+                    }
+                )
             }
         }
     )
-    // TODO no duplicate usernames
+
 });
 
 app.get('/api/session', function (req, res) {

@@ -63,6 +63,7 @@ class App extends React.Component{
         this.getPValue = this.getPValue.bind(this);
         this.getPoints = this.getPoints.bind(this);
         this.updateUsername = this.updateUsername.bind(this);
+        this.setConfidence = this.setConfidence.bind(this);
     }
 
     componentDidMount() {
@@ -149,6 +150,13 @@ class App extends React.Component{
         this.setState({username: username})
     }
 
+    setConfidence(confidence){
+        this.setState({
+            confidence,
+            history: [],
+        });
+    }
+
     render() {
         return (
             <ThemeProvider theme={theme} >
@@ -158,7 +166,7 @@ class App extends React.Component{
                         <Switch>
                             <Route exact path={"/"}>
                                 <div className="App">
-                                    <Home confidence={this.state.confidence} onChange={c => this.setState({confidence: c})}/>
+                                    <Home confidence={this.state.confidence} onChange={c => this.setConfidence(c)}/>
                                 </div>
                             </Route>
                             <Route exact path={"/account"}>
