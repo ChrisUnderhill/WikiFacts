@@ -3,7 +3,7 @@ We should make a version of this where it gives you a location and you have to p
 I forgot my password page
 Don't let people check their answers to the title page
 Show a nice warning when saving score failed
-make a calibration score
+Make account page prettier (and more useful)
 
 
 Backend
@@ -11,3 +11,4 @@ Let people request password resets
 Let people actually reset password
 Once logged in request and change personal data (eg score)
 Collect time series data
+Make enter submit forms where appropriate

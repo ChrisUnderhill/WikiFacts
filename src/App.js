@@ -153,6 +153,7 @@ class App extends React.Component{
     setConfidence(confidence){
         this.setState({
             confidence,
+            question: undefined,
             history: [],
         });
     }
