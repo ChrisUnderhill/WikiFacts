@@ -103,9 +103,12 @@ app.post('/api/register', function (req, res) {
     con.query(
         "SELECT * FROM users WHERE name = ?", [req.body.username],
         (err, data) => {
-            if (err || !data || data.length > 0) {
+            if (err){
                 res.status(500);
                 res.send("No");
+            } else if( !data || data.length > 0) {
+                res.status(400);
+                res.send("Username already exists");
             }
             else {
                 //Actually register
