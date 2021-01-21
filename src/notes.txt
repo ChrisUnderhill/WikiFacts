@@ -1,7 +1,6 @@
 We should make a version of this where it gives you a location and you have to put a circle on google maps to show your confidence.
 ?Should not pick days of the month
 I forgot my password page
-Don't let people check their answers to the title page
 Show a nice warning when saving score failed
 Make account page prettier (and more useful)
 

@@ -178,9 +178,9 @@ app.post('/api/update', function (req, res) {
         return;
     }
 
-    res.status(200)
-	let updateSite = spawn("bash", ["/home/pi/updateSite.sh"])
-    res.send()
+	let updateSite = spawn("bash", ["/home/pi/WikiFacts/updateSite.sh"]);
+    res.status(200);
+    res.send();
 });
 
 app.post('/api/score', function (req, res) {
