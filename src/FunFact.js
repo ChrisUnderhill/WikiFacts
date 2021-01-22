@@ -33,30 +33,34 @@ class FunFact extends React.Component{
             <p>
                 {this.props.fact}
             </p>
-            <center>
-            <table style={{"text-align": "right"}}>
-                <tr>
-                    <td>
-                        <label htmlFor={"lower"}>Enter a lower bound:</label>
-                    </td>
-                    <td>
-                        <input type={"number"} id={"lower"} value={this.state.lower} onChange={ (event) => this.setState({lower: event.target.value, canCheck: event.target.value <= this.state.upper})}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label htmlFor={"upper"}>Enter an upper bound:</label>
-                    </td>
-                    <td>
-                        <input type={"number"} id={"upper"} value={this.state.upper} onChange={ (event) => this.setState({upper: event.target.value, canCheck: event.target.value >= this.state.lower})}/>
-                    </td>
-                </tr>
-            </table>
-            </center>
+            {(typeof this.props.answer == "undefined") || <>
+                <center>
+                    <table style={{"textAlign": "right"}}>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label htmlFor={"lower"}>Enter a lower bound:</label>
+                            </td>
+                            <td>
+                                <input type={"number"} id={"lower"} value={this.state.lower} onChange={ (event) => this.setState({lower: event.target.value, canCheck: event.target.value <= this.state.upper})}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label htmlFor={"upper"}>Enter an upper bound:</label>
+                            </td>
+                            <td>
+                                <input type={"number"} id={"upper"} value={this.state.upper} onChange={ (event) => this.setState({upper: event.target.value, canCheck: event.target.value >= this.state.lower})}/>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+                </center>
 
-            <br />
-            <button className={"our-button"} disabled={!this.state.canCheck} onClick={this.checkAnswer}> Check </button>
-            <p>{this.state.output}</p>
+                <br />
+                <button className={"our-button"} disabled={!this.state.canCheck} onClick={this.checkAnswer}> Check </button>
+                <p>{this.state.output}</p>
+            </>}
         </div>
         );
     }
