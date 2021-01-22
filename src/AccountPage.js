@@ -1,4 +1,5 @@
 import React from "react";
+import App from "./App.js";
 
 class AccountPage extends React.Component {
     constructor(props) {
@@ -43,9 +44,33 @@ class AccountPage extends React.Component {
 
     render(){
         return (
-            <div>
-                <h1> Hi {this.state.username}! </h1>
-                <p>{JSON.stringify(this.state.scores)}</p>
+            <div className="welcome-container">
+                <h2> Hi {this.state.username}! </h2>
+                <p>This is how you're doing:</p>
+                <table className="scoreTable">
+                    <thead>
+                        <tr>
+                            <th>Confidence</th>
+                            <th>Correct</th>
+                            <th>Wrong</th>
+                            <th>Percentage</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.scores.map((row, index) => {
+                        return (
+                            <tr key={"row"+row.confidence} className={index % 2 ? "even" : "odd"}>
+                                <td>{row.confidence}%</td>
+                                <td>{row.correct}</td>
+                                <td>{row.wrong}</td>
+                                <td>{(100*row.correct/(row.correct+row.wrong)).toFixed(1)}%</td>
+                                <td>{App.getPoints(row.confidence, row.correct, row.correct+row.wrong)}</td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
             </div>
         )
     }
