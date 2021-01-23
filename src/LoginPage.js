@@ -14,6 +14,7 @@ class LoginPage extends React.Component {
         this.handleUserNameChange = this.handleUserNameChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.sendLoginRequest     = this.sendLoginRequest.bind(this)
+        this.enterListener        = this.enterListener.bind(this)
     }
 
     handleUserNameChange(event) {
@@ -45,6 +46,12 @@ class LoginPage extends React.Component {
         })
     }
 
+    enterListener (event) {
+        if (event.keyCode === 13 && this.state.password.length && this.state.username.length) {
+            this.sendLoginRequest();
+        }
+    }
+
     render() {
         if (this.state.redirectToHome){
             return <Redirect to={"/"} />
@@ -56,7 +63,7 @@ class LoginPage extends React.Component {
             <input type={"text"} id={"user"} placeholder={"Username"} onChange={this.handleUserNameChange} />
             <br />
             <label htmlFor={"pwd"}>Password: </label>
-            <input type={"password"} id={"pwd"} placeholder={"Password"} onChange={this.handlePasswordChange}/>
+            <input type={"password"} id={"pwd"} placeholder={"Password"} onChange={this.handlePasswordChange} onKeyDown={this.enterListener}/>
             <br />
             <button className={"our-button"} onClick={this.sendLoginRequest}> Log In </button>
             <br />

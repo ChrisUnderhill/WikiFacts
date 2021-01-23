@@ -4,10 +4,10 @@ I forgot my password page
 Show a nice warning when saving score failed
 Make account page more useful
 Calculate score better for large question numbers
+Figure out why fetching wikipedia is so slow
 
 Backend
 Let people request password resets
 Let people actually reset password
 Once logged in request and change personal data (eg score)
 Collect time series data
-Make enter submit forms where appropriate

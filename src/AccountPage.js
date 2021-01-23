@@ -28,6 +28,10 @@ class AccountPage extends React.Component {
     }
 
     getScores(){
+        this.setState({scores: [
+                {confidence: 90, correct: 75, wrong: 25}, {confidence: 50, correct: 17, wrong: 99}
+            ]});
+        return;
         fetch("api/scores").then(res => {
             if (res.status !== 200) {
                 alert("Could not get scores");
@@ -41,36 +45,45 @@ class AccountPage extends React.Component {
         this.getUsernameFromSession();
         this.getScores();
     }
-
+z
     render(){
         return (
             <div className="welcome-container">
                 <h2> Hi {this.state.username}! </h2>
-                <p>This is how you're doing:</p>
-                <table className="scoreTable">
-                    <thead>
-                        <tr>
-                            <th>Confidence</th>
-                            <th>Correct</th>
-                            <th>Wrong</th>
-                            <th>Percentage</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.scores.map((row, index) => {
-                        return (
-                            <tr key={"row"+row.confidence} className={index % 2 ? "even" : "odd"}>
-                                <td>{row.confidence}%</td>
-                                <td>{row.correct}</td>
-                                <td>{row.wrong}</td>
-                                <td>{(100*row.correct/(row.correct+row.wrong)).toFixed(1)}%</td>
-                                <td>{App.getPoints(row.confidence, row.correct, row.correct+row.wrong)}</td>
-                            </tr>
-                        )
-                    })}
-                    </tbody>
-                </table>
+                {this.state.scores.length ? (
+                        <>
+                            <p>This is how you're doing:</p>
+                            <table className="scoreTable">
+                                <thead>
+                                <tr>
+                                    <th>Confidence</th>
+                                    <th>Correct</th>
+                                    <th>Wrong</th>
+                                    <th>Percentage</th>
+                                    <th>Points</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.state.scores.map((row, index) => {
+                                    return (
+                                        <tr key={"row" + row.confidence} className={index % 2 ? "even" : "odd"}>
+                                            <td>{row.confidence}%</td>
+                                            <td>{row.correct}</td>
+                                            <td>{row.wrong}</td>
+                                            <td>{(100 * row.correct / (row.correct + row.wrong)).toFixed(1)}%</td>
+                                            <td>{App.getPoints(row.confidence, row.correct, row.correct + row.wrong)}</td>
+                                        </tr>
+                                    )
+                                })}
+                                </tbody>
+                            </table>
+                        </>
+                    ) :
+                    <>
+                        <p>You haven't submitted any questions yet</p>
+                        <p>Get started <a href="/play">here</a></p>
+                    </>
+                }
             </div>
         )
     }

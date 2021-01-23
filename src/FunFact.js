@@ -5,6 +5,7 @@ class FunFact extends React.Component{
         super(props);
         this.state = {lower: 0, upper: 0, output: "", fact: props.fact, canCheck: false}
         this.checkAnswer = this.checkAnswer.bind(this)
+        this.enterListener = this.enterListener.bind(this)
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
@@ -27,6 +28,12 @@ class FunFact extends React.Component{
         }
     }
 
+    enterListener (event) {
+        if (event.keyCode === 13 && this.state.canCheck) {
+            this.checkAnswer();
+        }
+    }
+
     render() {
         return (
         <div>
@@ -42,7 +49,7 @@ class FunFact extends React.Component{
                                 <label htmlFor={"lower"}>Enter a lower bound:</label>
                             </td>
                             <td>
-                                <input type={"number"} id={"lower"} value={this.state.lower} onChange={ (event) => this.setState({lower: event.target.value, canCheck: event.target.value <= this.state.upper})}/>
+                                <input type={"number"} id={"lower"} value={this.state.lower} onKeyDown={this.enterListener} onChange={ (event) => this.setState({lower: event.target.value, canCheck: event.target.value <= this.state.upper})}/>
                             </td>
                         </tr>
                         <tr>
@@ -50,7 +57,7 @@ class FunFact extends React.Component{
                                 <label htmlFor={"upper"}>Enter an upper bound:</label>
                             </td>
                             <td>
-                                <input type={"number"} id={"upper"} value={this.state.upper} onChange={ (event) => this.setState({upper: event.target.value, canCheck: event.target.value >= this.state.lower})}/>
+                                <input type={"number"} id={"upper"} value={this.state.upper} onKeyDown={this.enterListener} onChange={ (event) => this.setState({upper: event.target.value, canCheck: event.target.value >= this.state.lower})}/>
                             </td>
                         </tr>
                         </tbody>

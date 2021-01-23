@@ -7,7 +7,7 @@ class RegisterPage extends React.Component {
         this.state = {
             username: "",
             password: "",
-            ConfirmPassword: "",
+            confirmPassword: "",
             redirectToLogin: false,
         }
 
@@ -15,6 +15,7 @@ class RegisterPage extends React.Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this)
         this.sendRegisterRequest = this.sendRegisterRequest.bind(this)
+        this.enterListener = this.enterListener.bind(this)
     }
 
     handleUserNameChange(event) {
@@ -26,7 +27,7 @@ class RegisterPage extends React.Component {
     }
 
     handleConfirmPasswordChange(event) {
-        this.setState({ConfirmPassword: event.target.value})
+        this.setState({confirmPassword: event.target.value})
     }
     
     sendRegisterRequest(){
@@ -48,6 +49,17 @@ class RegisterPage extends React.Component {
             }
         })
     }
+    
+    enterListener (event) {
+        if (event.keyCode === 13 && 
+            this.state.password.length && 
+            this.state.username.length && 
+            this.state.confirmPassword.length &&
+            this.state.password === this.state.confirmPassword
+        ) {
+                this.sendRegisterRequest();
+        }
+    }
 
     render() {
         if (this.state.redirectToLogin){
@@ -64,13 +76,13 @@ class RegisterPage extends React.Component {
             <input type={"text"} id={"user"} placeholder={"Username"} onChange={this.handleUserNameChange} />
             <br />
             <label htmlFor={"pwd"}>Password: </label>
-            <input type={"password"} id={"pwd"} placeholder={"Password"} onChange={this.handlePasswordChange}/>
+            <input type={"password"} id={"pwd"} placeholder={"Password"} onChange={this.handlePasswordChange} onKeyDown={this.enterListener}/>
             <br />
             <label htmlFor={"cpwd"}>Confirm Password: </label>
-            <input type={"password"} id={"cpwd"} placeholder={"Password"} onChange={this.handleConfirmPasswordChange}/>
+            <input type={"password"} id={"cpwd"} placeholder={"Password"} onChange={this.handleConfirmPasswordChange} onKeyDown={this.enterListener}/>
             <br />
-            {this.state.password === this.state.ConfirmPassword || <p>Passwords do not match!</p>}
-            <button className={"our-button"} disabled={this.state.password !== this.state.ConfirmPassword} onClick={this.sendRegisterRequest}> Register </button>
+            {this.state.password === this.state.confirmPassword || <p>Passwords do not match!</p>}
+            <button className={"our-button"} disabled={this.state.password !== this.state.confirmPassword} onClick={this.sendRegisterRequest}> Register </button>
             <br />
             <p>Already have an account? <br/>
                 <Link to={"/login"}>Login here</Link> </p>
