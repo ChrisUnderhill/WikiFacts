@@ -49,7 +49,7 @@ class FunFact extends React.Component{
                                 <label htmlFor={"lower"}>Enter a lower bound:</label>
                             </td>
                             <td>
-                                <input type={"number"} id={"lower"} value={this.state.lower} onKeyDown={this.enterListener} onChange={ (event) => this.setState({lower: event.target.value, canCheck: event.target.value <= this.state.upper})}/>
+                                <input type={"number"} id={"lower"} value={this.state.lower} onKeyDown={this.enterListener} onChange={ (event) => this.setState({lower: event.target.value, canCheck: parseInt(event.target.value) <= this.state.upper})}/>
                             </td>
                         </tr>
                         <tr>
@@ -57,7 +57,7 @@ class FunFact extends React.Component{
                                 <label htmlFor={"upper"}>Enter an upper bound:</label>
                             </td>
                             <td>
-                                <input type={"number"} id={"upper"} value={this.state.upper} onKeyDown={this.enterListener} onChange={ (event) => this.setState({upper: event.target.value, canCheck: event.target.value >= this.state.lower})}/>
+                                <input type={"number"} id={"upper"} value={this.state.upper} onKeyDown={this.enterListener} onChange={ (event) => this.setState({upper: event.target.value, canCheck: parseInt(event.target.value) >= this.state.lower})}/>
                             </td>
                         </tr>
                         </tbody>
