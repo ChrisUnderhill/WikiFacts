@@ -4,6 +4,7 @@ I forgot my password page
 Show a nice warning when saving score failed
 Make account page more useful
 Calculate score better for large question numbers
+Ensure you can't answer the same question twice (at least in a row?)
 ? Use wikipedia's "on this day" set to generate topical questions (could be easily converted into question rather than fill the blank format).
 
 Backend

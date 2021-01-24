@@ -71,7 +71,7 @@ z
                                             <td>{row.correct}</td>
                                             <td>{row.wrong}</td>
                                             <td>{(100 * row.correct / (row.correct + row.wrong)).toFixed(1)}%</td>
-                                            <td>{App.getPoints(row.confidence, row.correct, row.correct + row.wrong)}</td>
+                                            <td>{App.getPvaluePoints(row.confidence, row.correct, row.correct + row.wrong)}</td>
                                         </tr>
                                     )
                                 })}

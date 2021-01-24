@@ -136,12 +136,31 @@ class App extends React.Component{
         }
     }
 
-    static getPoints(confidence, score, n_trials){
+    static getPvaluePoints(confidence, score, n_trials){
         if (n_trials === 0){
             return 0;
         }
         let expected = Math.round(confidence * n_trials / 100);
         return Math.floor( 100 * App.getPValue(confidence, score, n_trials) / App.getPValue(confidence, expected, n_trials));
+    }
+
+    static getBetaDistributionPoints(confidence, score, n_trials){
+        let confidencePercent = confidence/100;
+        const alpha = 8;
+        const beta = (alpha-1)/confidencePercent - alpha +2; //calculate beta such that our Beta distribution is maximal at the correct confidence.
+        console.log("beta = " + beta);
+        const normalisation = Math.pow(confidencePercent, alpha-1) * Math.pow(1 - confidencePercent, beta-1);
+        console.log("normalisation = " + normalisation);
+        if (n_trials === 0){
+            return 0;
+        }
+        let userPercentage = score / n_trials;
+        let points = Math.pow(userPercentage, alpha-1) * Math.pow(1 - userPercentage, beta-1);
+
+        console.log("confidencePercent = ", confidencePercent)
+        console.log("userPercent = ", userPercentage)
+        console.log("points = " + points)
+        return (points / normalisation * 100).toFixed(1);
     }
 
     updateUsername(username){
@@ -194,7 +213,7 @@ class App extends React.Component{
                                     <div className="history">
                                         <h2>Confidence: {this.state.confidence}%</h2>
                                         <h2 className={"score"}>Score: {this.getScore()}/{this.state.history.length}</h2>
-                                        <p className="p-text no-margin"><b>Points: {App.getPoints(this.state.confidence, this.getScore(), this.state.history.length)}</b></p>
+                                        <p className="p-text no-margin"><b>Points: {App.getBetaDistributionPoints(this.state.confidence, this.getScore(), this.state.history.length)}</b></p>
                                         <div className="p-container">
                                             <p className="p-text"><em>p</em>-value:&nbsp;
                                                 {App.getPValue(this.state.confidence, this.getScore(), this.state.history.length).toFixed(3)}</p>
