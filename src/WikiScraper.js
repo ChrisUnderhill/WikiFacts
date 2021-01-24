@@ -1,4 +1,5 @@
 import { parse } from 'node-html-parser';
+import links from "./links.js";
 
 const endpointHtml = "https://en.wikipedia.org/api/rest_v1/page/html/"
 const endpointSummary = "https://en.wikipedia.org/api/rest_v1/page/summary/"
@@ -37,6 +38,23 @@ function findFact(){
             }
         })
 }
+function findCachedFact(){
+    return getSummary(choose(links))
+        .then( (json) => {
+            let s = json.extract;
+            if (!s){
+                return;
+            }
+            s = s.replace(/\[.*\]/, "");
+            let regex = /[0-9]+,?\.?[0-9]*/g;
+            let matches = s.match(regex)
+            if (matches){
+                let m = choose(matches);
+                return {question: s, answer: m, title: json.title}
+            }
+        })
+}
+
 
 function choose(choices) {
     let index = Math.floor(Math.random() * choices.length);
@@ -49,4 +67,4 @@ function pickRandomDate(){
     return "Wikipedia:Featured_article_candidates%2FFeatured_log%2F" + month + "_" + year
 }
 
-export {findFact}
+export {findFact, findCachedFact}

@@ -16,7 +16,7 @@ import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import AccountPage from "./AccountPage";
 
-import {findFact} from "./WikiScraper";
+import {findFact, findCachedFact} from "./WikiScraper";
 
 import tip from "./tip.png";
 
@@ -86,7 +86,7 @@ class App extends React.Component{
     updateFact(promise) {
         promise.then((res) => {
             if (res === undefined) {
-                this.updateFact(findFact())
+                this.updateFact(findCachedFact())
                 return
             }
             let sentence = res.question
@@ -179,7 +179,7 @@ class App extends React.Component{
                                         <div className="question-container">
                                             <button className={"our-button"}
                                                     disabled={this.state.loading}
-                                                    onClick={() => {this.setState({loading: true}); this.updateFact(findFact())} } >
+                                                    onClick={() => {this.setState({loading: true}); this.updateFact(findCachedFact())} } >
                                                 Find me a fact!
                                             </button>
                                             {this.state.loading? <Loading/> :
