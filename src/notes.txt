@@ -12,8 +12,6 @@ Let people actually reset password
 Once logged in request and change personal data
 Collect time series data
 
-update readme
 security headers
-make a better maintainence/update error for nginx
 
 nginx config is in /etc/nginx/sites-available/default
