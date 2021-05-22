@@ -15,3 +15,5 @@ Collect time series data
 update readme
 security headers
 make a better maintainence/update error for nginx
+
+nginx config is in /etc/nginx/sites-available/default
