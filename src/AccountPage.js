@@ -7,6 +7,7 @@ class AccountPage extends React.Component {
         this.state = {
             username: "",
             scores: [],
+            error: "You haven't submitted any answers yet",
         }
 
         this.getUsernameFromSession = this.getUsernameFromSession.bind(this);
@@ -28,15 +29,11 @@ class AccountPage extends React.Component {
     }
 
     getScores(){
-        this.setState({scores: [
-                {confidence: 90, correct: 75, wrong: 25}, {confidence: 50, correct: 17, wrong: 99}
-            ]});
-        return;
         fetch("api/scores").then(res => {
             if (res.status !== 200) {
-                alert("Could not get scores");
+                this.setState({error: "Could not get scores"})
             } else {
-                res.json().then(j => this.setState({scores: j}))
+                res.json().then(j => this.setState({scores: j, error: ""}))
             }
         })
     }
@@ -80,7 +77,7 @@ z
                         </>
                     ) :
                     <>
-                        <p>You haven't submitted any questions yet</p>
+                        <p>{this.state.error}</p>
                         <p>Get started <a href="/play">here</a></p>
                     </>
                 }
