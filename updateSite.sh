@@ -4,7 +4,7 @@ git pull
 
 
 NEW_PACKAGE_ID=$(git rev-parse HEAD:package.json)
-[ $OLD_PACKAGE_ID = $NEW_PACKAGE_ID ] || echo "npm installing" && npm install
+[ $OLD_PACKAGE_ID = $NEW_PACKAGE_ID ] || (echo "npm installing" && npm install)
 
 echo "npm running build"
 npm run-script build
