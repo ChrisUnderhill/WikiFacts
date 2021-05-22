@@ -178,7 +178,7 @@ app.post('/api/update', function (req, res) {
         return;
     }
 
-	let updateSite = spawn("bash", ["/home/pi/WikiFacts/updateSite.sh"]);
+	let updateSite = spawn("bash", ["/home/pi/WikiFacts/updateSite.sh", ">>", "/home/pi/update.log"]);
     res.status(200);
     res.send();
 });
@@ -239,7 +239,11 @@ app.get('/*', function (req, res) {
     if (!react_paths.includes(req.originalUrl)){
         res.status(404);
     }
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'), {}, (err) => {
+        if (err){
+            res.status(500);
+        }
+    });
 });
 
 app.listen(process.env.PORT || 5000);
