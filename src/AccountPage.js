@@ -35,7 +35,9 @@ class AccountPage extends React.Component {
             } else {
                 res.json().then(j => this.setState({scores: j, error: ""}))
             }
-        })
+        }).catch(() => {
+            this.setState({error: "Could not get scores"})
+        });
     }
 
     componentDidMount() {
